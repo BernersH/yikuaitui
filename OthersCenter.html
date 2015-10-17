@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>TA的资料</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+	
+		</script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header>
+			<div class="mui-action-back return"><img src="Myicon/return.png" /></div>
+			<span id="title">
+				TA的资料
+			</span>
+		</header>
+			<div class="user_picture">
+				<img src="" id="userpic" /></div>
+			<div class="level">
+				<span id="user_name">
+						
+					</span>
+				<!--<img src=" " style="height: 50px;width: 9%;border: none;"/>-->
+					</div>
+			
+
+			<div class="active">
+	活跃度  <span id="huoyuedu">
+		
+	</span>
+	
+          </div>
+			<div class="feel1 "> <img src="Myicon/zan.png " class="icon " />
+				<span id="usernumoflike">
+	     	            	
+	     	            </span>
+				<img src=" Myicon/tread icon.png " class="icon " />
+				<span id="usernumofunlike">
+	     	            	
+	     	            </span>
+				<img src="Myicon/pinglun.png" class="icon " />
+				<span id="usernumofcomment">
+	     	            
+	     	            </span>
+				<img src="Myicon/share icon.png" class="icon " />
+				<span id="usernumoftrans">
+	     	            
+	     	            </span>
+			</div>
+			
+			
+			
+			
+			
+			<div class="person" style="margin-top: -40px;">
+			
+				<div class="persontop" >
+					<div id="segmentedControl" class="mui-segmented-control" style="border:none;font-size: 17px;">
+					<a class="mui-control-item mui-active fontred" href="#item1" style="margin-bottom: 10px;">
+                                                                                                             TA喜欢的                                                					
+					</a>
+					<a class="mui-control-item fontblue" href="#item2"  style="margin-bottom: 10px;">
+						                                    TA发布的
+					</a>
+					
+					
+					
+					
+				</div>
+			</div>
+			<div id="item1" class="mui-control-content mui-active">
+			<ul class="content-list" id="content_show1">
+				
+			
+			</ul>
+			</div>
+			  <div id="item2" class="mui-control-content">
+			<ul class="content-list" id="content_show2">
+				<li class="content "> 
+					
+				</li>
+			</ul>
+			
+			
+					
+					</div>
+				
+					
+				</div>
+				</div>
+	      <footer class="navigation ">
+
+			<img src="Myicon/home page icon.png" id="index" style="height: 35px;position: fixed;bottom: 10px;left: 6%;background:rgba(30,28,29,0.1);z-index: 100000;" />
+			<img src="Myicon/tui.png" id="Tuituitui" style="height:90px;width:90px;position: fixed;bottom: 10px;left:38%;background: none;z-index: 10000000;" />
+			<img src="Myicon/personal center.png" id="PersonalCenter" style="height: 35px;position: fixed;right: 6%;bottom: 10px; background: rgba(30,29,29,0.1);z-index: 100000;" />
+
+		</footer>
+					
+			
+		
+	<script type="text/javascript">
+	var wodeid = '';
+	var urls = surl + "user/getHeCenter";
+	var jsonobj = {
+		'userId':localStorage.tarenid
+	};
+	mui.ajax(urls, {
+		data: jsonobj,
+		dataType: 'json',
+		type: 'post',
+		timeout: 10000,
+		success: function(data) {
+			
+			
+			document.getElementById("userpic").src = serip + data.user.icon;
+			document.getElementById("user_name").innerHTML = data.user.username;
+			document.getElementById("usernumoflike").innerHTML = data.user.praise;
+			document.getElementById("usernumofunlike").innerHTML = data.user.roast;
+			document.getElementById("usernumofcomment").innerHTML = data.user.comment;
+			document.getElementById("usernumoftrans").innerHTML = data.user.repost;
+			wodeid = data.loginId;
+			var index = document.getElementById("index");
+			var tuituitui = document.getElementById("Tuituitui");
+			var personal = document.getElementById("PersonalCenter");
+			var headset = document.getElementById("headset");
+			 var huoyuedu = document.getElementById("huoyuedu");
+                       var sunNum = data.user.sunNum;
+                       var moonNum = data.user.moonNum;
+                       var starNum = data.user.starNum;
+                       
+                        for(sun = 0; sun < sunNum; sun++){
+                        	 var img = document.createElement("img");
+                             img.src = 'Myicon/sun icon.png';
+                             huoyuedu.appendChild(img);
+                        }
+                         for(moon = 0; moon < moonNum; moon++) {
+                             var img = document.createElement("img");
+                             img.src='Myicon/moon icon.png';
+                             huoyuedu.appendChild(img);
+                         }
+		
+		                  for(star = 0; star < starNum; star++) {
+		                  	 var img = document.createElement("img");
+		                  	 img.src = 'Myicon/star icon.png';
+		                  	 huoyuedu.appendChild(img);
+		                  }
+			index.addEventListener('tap', function() {
+				mui.openWindow({
+					url: 'index.html',
+					id: 'index.html'
+				})
+			})
+			 tuituitui.addEventListener('tap', function() {
+			 	
+				mui.openWindow({
+					url: 'Tuituitui.html',
+					id: 'Tuituitui.html'
+				})
+			})
+			 personal.addEventListener('tap', function() {
+				localStorage.loginId = wodeid;
+					mui.openWindow({
+						url: 'PersonalCenter.html',
+						id: 'PersonalCenter.html'
+					})
+			})
+	         
+	      
+	        var likelist = data.likeList;
+	        var publishlist = data.publishList;
+	                    var comm = new Array();
+						var icon = new Array();
+						var id = new Array();
+						var joined_number = new Array();
+						var praise = new Array();
+						var repost = new Array();
+						var roast = new Array();
+						var status = new Array();
+						var upload = new Array();
+						var userid = new Array();
+						var username = new Array();
+						var splitupload = new Array();
+						var newimsrc = new Array();
+						var li = new Array();
+						var act_time = new Array();
+						var ulele = document.getElementById("content_show1");
+						var ulinner = "";
+						var pro_type = new Array();
+						var liele = ulele.getElementsByTagName("li");
+						var split = new Array();
+						var time = new Array();
+	                  
+	                    var publishcomm = new Array();
+						var publishicon = new Array();
+						var publishid = new Array();
+						var publishjoined_number = new Array();
+						var publishpraise = new Array();
+						var publishrepost = new Array();
+						var publishroast = new Array();
+						var publishstatus = new Array();
+						var publishupload = new Array();
+						var publishuserid = new Array();
+						var publishusername = new Array();
+						var publishsplitupload = new Array();
+						var publishnewimsrc = new Array();
+						var publishli = new Array();
+						var publishact_time = new Array();
+						var publishulele = document.getElementById("content_show2");
+						var publishulinner = "";
+						var publishpro_type = new Array();
+						var publishliele = ulele.getElementsByTagName("li");
+						var publishsplit = new Array();
+						var publishtime = new Array();
+	       for(i=0;i<data.likeList.length;i++){
+	        	            comm[i] = data.likeList[i].comment;
+							icon[i] = data.likeList[i].icon;
+							id[i] = data.likeList[i].id;
+							joined_number[i] = data.likeList[i].joined_number;
+							praise[i] = data.likeList[i].praise;
+							repost[i] = data.likeList[i].repost;
+							roast[i] = data.likeList[i].roast;
+							status[i] = data.likeList[i].status;
+							upload[i] = data.likeList[i].upload;
+							if(upload[i].indexOf("]")>-1){
+								splitupload = upload[i].split("\"");
+							newimsrc[i] = serip + splitupload[1];
+							}else{
+								newimsrc[i] = serip +upload[i];
+							}
+//							
+							userid[i] = data.likeList[i].userId;
+							username[i] = data.likeList[i].username;
+							act_time[i] = data.likeList[i].time;
+							split[i] = act_time[i].split(" ")[0];
+							time[i] = split[0];
+							pro_type[i] = data.likeList[i].pro_type;
+							li[i] = "<li class=\"content\" id=\"" + pro_type[i] + "\"><img src = \"" + newimsrc[i] + "\" style=\"width: 88%;height: 300px;\"  id=\"" + id[i] + "\"/>" + "<div class=\"personofworks \"><div class=\"user\"> <span id=\"portrait\"> <img src=\"" + serip + icon[i] + "\" /> </span><span class=\"namename \">" + username[i] + "</span></div>" + "<div class=\"feel\"> <img src = \"Myicon/zan.png\" class = \"icon\"/>" + "<span>" + praise[i] + "</span>" + "<img src = \"Myicon/tread icon.png\" class = \"icon\"/>" + "<span>" + roast[i] + "</span>" + "<img src = \"Myicon/pinglun.png\" class = \"icon\"/>" + "<span>" + comm[i] + "</span>" + "<img src = \"Myicon/share icon.png\" class = \"icon\"/>" + "<span>" + repost[i] + "</span>" + "</div>" + "<div id=\"time3\">" + "发布时间：" + split[i] + "</div>" + "<div class = 'line3 clear'>" + " " + "</div>";
+                            ulinner += li[i];
+							
+							ulele.innerHTML = ulinner;
+	        }
+	        
+	        
+	         for(i=0;i<data.publishList.length;i++){
+	                        publishcomm[i] = data. publishList[i].comment;
+							publishicon[i] = data. publishList[i].icon;
+							publishid[i] = data. publishList[i].id;
+							publishjoined_number[i] = data.publishList[i].joined_number;
+							publishpraise[i] = data.publishList[i].praise;
+							publishrepost[i] = data.publishList[i].repost;
+							publishroast[i] = data.publishList[i].roast;
+							publishstatus[i] = data.publishList[i].status;
+							publishupload[i] = data.publishList[i].upload;
+							if(publishupload[i].indexOf("]")>-1){
+								publishsplitupload = publishupload[i].split("\"");
+							publishnewimsrc[i] = serip + publishsplitupload[1];
+							}else{
+								publishnewimsrc[i] = serip +publishupload[i];
+							}
+							
+							publishuserid[i] = data.publishList[i].userId;
+							publishusername[i] = data.publishList[i].username;
+							publishact_time[i] = data.publishList[i].time;
+							publishsplit[i] = publishact_time[i].split(" ")[0];
+							publishtime[i] = publishsplit[0];
+							publishpro_type[i] = data.publishList[i].pro_type;
+						    li[i] = "<li class=\"content\" id=\"" + pro_type[i] + "\"><img src = \"" + newimsrc[i] + "\" style=\"width: 88%;height: 300px;\"  id=\"" + id[i] + "\"/>" + "<div class=\"personofworks \"><div class=\"user\"> <span id=\"portrait\"> <img src=\"" + serip + icon[i] + "\" /> </span><span class=\"namename \">" + username[i] + "</span></div>" + "<div class=\"feel\"> <img src = \"Myicon/zan.png\" class = \"icon\"/>" + "<span>" + praise[i] + "</span>" + "<img src = \"Myicon/tread icon.png\" class = \"icon\"/>" + "<span>" + roast[i] + "</span>" + "<img src = \"Myicon/pinglun.png\" class = \"icon\"/>" + "<span>" + comm[i] + "</span>" + "<img src = \"Myicon/share icon.png\" class = \"icon\"/>" + "<span>" + repost[i] + "</span>" + "</div>" + "<div id=\"time3\">" + "发布时间：" + split[i] + "</div>" + "<div class = 'line3 clear'>" + " " + "</div>";                    							
+							publishulinner += li[i];
+							publishulele.innerHTML = publishulinner;
+	        }
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+	        
+						mui('#content_show1').on('tap', 'li', function() {
+							var id1 = this.getAttribute('id');
+							var tuiId = this.firstChild.getAttribute('id');
+							
+							if (id1 == "active") {
+							  localStorage.gettuiId = tuiId;
+														
+							
+								mui.openWindow({
+									url: 'DetailsofAction.html',
+									id: 'DetailsofAction.html'
+								})
+							} else if (id1 == "requirement") {
+								 
+								 localStorage.gettuiId = tuiId;
+							
+							
+								mui.openWindow({
+									url: 'DetailsofTasks.html',
+									id: 'DetailsofTasks.html'
+								})
+							} else if (id1 == "work") {
+								 localStorage.gettuiId = tuiId;
+							
+					
+						mui.openWindow({
+									url: 'DetailsofWorks.html',
+									id: 'DetailsofWorks.html'
+								})
+			}}
+						)
+                           
+                           mui('#content_show2').on('tap', 'li', function() {
+							var id1 = this.getAttribute('id');
+							var tuiId = this.firstChild.getAttribute('id');
+							
+							if (id1 == "active") {
+							  localStorage.gettuiId = tuiId;
+								mui.openWindow({
+									url: 'DetailsofAction.html',
+									id: 'DetailsofAction.html'
+								})
+							} else if (id1 == "requirement") {
+								 
+								 localStorage.gettuiId = tuiId;
+								mui.openWindow({
+									url: 'DetailsofTasks.html',
+									id: 'DetailsofTasks.html'
+								})
+							} else if (id1 == "work") {
+								 localStorage.gettuiId = tuiId;
+						mui.openWindow({
+									url: 'DetailsofWorks.html',
+									id: 'DetailsofWorks.html'
+								})
+			}}
+						)
+                           
+                           
+                           
+                           
+		
+		
+		
+		}})
+	</script>
+	</body>
+
+</html>

@@ -1,0 +1,14 @@
+////var surl = "http://lmf0724.oicp.net/tennis/";
+////var surl = "http://192.168.0.101:8080/yikuaitui/";
+////var surl = "http://120.25.151.70/shenme/";
+//var surl = "http://192.168.31.141:8080/yikuaitui/";
+////var serip = "http://192.168.0.101:8080";
+//var serip = "http://192.168.31.141:8080";
+var surl="http://120.26.196.111/";
+var serip="http://120.26.196.111/";
+//var surl="http://192.168.0.107:8080/yikuaitui/";
+//var serip="http://192.168.0.107:8080/yikuaitui/";
+//var surl="http://lmf0724.oicp.net/yikuaitui/";
+//var serip="http://lmf0724.oicp.net/yikuaitui/";
+//var surl="http://192.168.0.104/";
+//var serip="http://192.168.0.104/";

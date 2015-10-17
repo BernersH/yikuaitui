@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>用户评论任务</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/toggleClass.js" type="text/javascript" charset="utf-8"></script>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+	</head>
+	<body>
+	<header>
+			<div class="mui-action-back return" id="return"><img src="Myicon/return.png" /></div>
+			<span id="title">
+				发表评论
+			</span>
+	        <span id="queding" style="right:10px;position: fixed;color: #4EB5D7;font-size: 17px;">
+	        	确定
+	        </span>	
+	
+	</header>
+	<textarea id="pinglunneirong" name="" rows="15" cols="" placeholder="我也说两句...." style="background:#353432;margin-top: 48px;border-radius: 0;border:none;margin-bottom: -10px;color: white;"></textarea>
+	
+	
+	</body>
+<script type="text/javascript">
+	
+	
+	var queding = document.getElementById("queding");
+    var pinglunneirong = document.getElementById("pinglunneirong");
+   queding.addEventListener('tap',function(){
+    	if (pinglunneirong.value==''||pinglunneirong.value==null){
+    		mui.toast('对不起，请输入评论内容')
+    	}
+    	else{
+    	var jsonobj = {
+						    "proId":localStorage.gettuiId,
+						    "table":'requirement',
+							"comment":pinglunneirong.value,
+						};
+					    var str = jsonobj;
+						var url = surl + "user/addComment";
+						mui.ajax(url, {
+							data: str,
+							dataType: 'json',
+							type: 'post',
+							timeout: 10000,
+							success: function(data) {
+								if (data.state == '1') {
+							
+							mui.toast('发布成功,后台审核中...');
+							mui.openWindow({
+	       	url:'DetailsofTasks.html',
+	       	id:'DetailsofTasks.html'
+	       })
+							pinglunneirong.value=null;
+								      
+								} else if (data.state == '0') {
+									mui.toast('发布失败');
+								}
+							},
+							error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+								
+								mui.toast("网络连接错误");
+								console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+								console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+								return false;
+							}
+	})
+	     
+	     
+	       
+	}
+    })
+   
+	
+	
+</script>
+
+</html>

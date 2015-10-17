@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>登录</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="no">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6ooyX5HzmRwmPGFsKisISrFf"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+
+	</head>
+
+	<body>
+		<div class="mui-content" style="margin-bottom: 60px;">
+			<div class="face"><img src="Myicon/logo.png" /></div>
+			<form>
+				<input type="tel" class="mui-input-clear" name="phone" id="phone" placeholder="输入手机号码" />
+				<input type="password" class="mui-input-clear" name="password" id="password" placeholder="输入密码" />
+			</form>
+			<div class="register" id="register">注册新用户</div>
+			<div class="problem" id="fog">忘记密码？</div>
+			<div class="footer">
+				<input type="button" class="submit" value="登录" onclick="checkreg();return false;" />
+				<div id="alert" style="text-align: center;font-size:15px;color: red;"></div>
+				<!--<input type="button" name="" id="QQ" value="QQ登陆" />-->
+				<!--<input type="button" name="" id="WeChat" value="微信登陆" />-->
+                <div id="allmap" style="width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";display: none;"></div>
+			</div>
+		</div>
+		<script>
+			if (localStorage.tempuser != null && localStorage.tempuser != "" && localStorage.savepassword != null && localStorage.savepassword != '') {
+				mui.toast("登陆中，请稍候");
+				var jsonobj = {
+					"phone": localStorage.tempuser,
+					"password": localStorage.savepassword
+				};
+				var str = jsonobj;
+				var url = surl + "user/login";
+				mui.ajax(url, {
+					data: str,
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						loginok();
+					},
+					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+						mui.toast("网络连接错误");
+						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+						return false;
+					}
+				});
+			} else {
+				function checkreg() {
+					var phone = document.getElementById("phone").value;
+					var password = document.getElementById("password").value;
+					if (phone == "" || phone == null) {
+						mui.toast("请填写用户名！");
+						return false;
+					} else if (password == "") {
+						mui.toast("请填写密码！");
+						return false;
+					} else {
+						login();
+					}
+				}
+			        var jingdu = null;
+					var weidu = null;
+
+				function login() {
+					mui.toast("登陆中，请稍候");
+					
+					var map = new BMap.Map("allmap");
+					var point = new BMap.Point(116.331398, 39.897445);
+					map.centerAndZoom(point, 12);
+					var geolocation = new BMap.Geolocation();
+					geolocation.getCurrentPosition(function(r) {
+						if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+							var mk = new BMap.Marker(r.point);
+							map.addOverlay(mk);
+							map.panTo(r.point);
+							
+							 jingdu = r.point.lat;
+							 weidu = r.point.lng;
+						     var phone = document.getElementById("phone").value;
+					var password = document.getElementById("password").value;
+					 
+					var jsonobj = {
+						"phone": phone,
+						"password": password,
+					    "lat":jingdu,
+					    "lng":weidu
+					};
+					var str = jsonobj;
+					var url = surl + "user/login";
+					mui.ajax(url, {
+						data: str,
+						dataType: 'json',
+						type: 'post',
+						timeout: 10000,
+						success: function(data) {
+							if (data.state == "3") {
+								mui.toast("用户名或密码错误");
+								return false;
+							} else if (data.state == "1") {
+								mui.toast("该用户不存在");
+								return false;
+							} else if (data.state == "4") {
+								mui.toast('该用户被禁用');
+								return false;
+							} else {
+								//							localStorage.tempClass = data.classId;
+								//							localStorage.tempGrade = data.grade;
+								loginok();
+							}
+						},
+						error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+							mui.toast("网络连接错误");
+							console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+							console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+							return false;
+						}
+					});
+						} else {
+							alert('failed' + this.getStatus());
+							     var phone = document.getElementById("phone").value;
+					var password = document.getElementById("password").value;
+					 
+					var jsonobj = {
+						"phone": phone,
+						"password": password,
+					    "lat":jingdu,
+					    "lng":weidu
+					};
+					var str = jsonobj;
+					var url = surl + "user/login";
+					mui.ajax(url, {
+						data: str,
+						dataType: 'json',
+						type: 'post',
+						timeout: 10000,
+						success: function(data) {
+							if (data.state == "3") {
+								mui.toast("用户名或密码错误");
+								return false;
+							} else if (data.state == "1") {
+								mui.toast("该用户不存在");
+								return false;
+							} else if (data.state == "4") {
+								mui.toast('该用户被禁用');
+								return false;
+							} else {
+								//							localStorage.tempClass = data.classId;
+								//							localStorage.tempGrade = data.grade;
+								loginok();
+							}
+						},
+						error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+							mui.toast("网络连接错误");
+							console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+							console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+							return false;
+						}
+					});
+						}
+					}, {
+						enableHighAccuracy: true
+					})
+					
+				}
+
+				function tempsave() {
+					localStorage.tempuser = document.getElementById("phone").value;
+				}
+
+				function savepassword() {
+						localStorage.savepassword = document.getElementById("password").value;
+					}
+					//			function location() {
+					////				var register = document.getElementById("register");
+					//				var forget = document.getElementById("forget");
+					//				register.addEventListener("tap", function() {
+					//					mui.openWindow({
+					//						url: "register.html",
+					//						id: "register",
+					//						styles: {},
+					//						extras: {},
+					//						crateNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					//						show: {
+					//							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+					//							aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+					//							duration: "200" //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+					//						}
+					//					})
+					//				})
+					//              forget.addEventListener('tap',function() {
+					//              	mui.openWindow({
+					//						url: "forgetPassword.html",
+					//						id: "forgetPassword",
+					//						styles: {},
+					//						extras: {},
+					//						crateNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					//						show: {
+					//							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+					//							aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+					//							duration: "200" //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+					//						}
+					//					})
+					//              })			
+					//			}
+					//			
+				var reg = document.getElementById("register");
+				reg.addEventListener('tap', function() {
+					mui.openWindow({
+						url: "Regist.html",
+						id: "Regist",
+						styles: {},
+						extras: {},
+						crateNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+							duration: "200" //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						}
+					})
+				})
+				var fog = document.getElementById("fog");
+				fog.addEventListener('tap', function() {
+					mui.openWindow({
+						url: "ForgetPassword.html",
+						id: "ForgetPassword.html"
+					})
+				})
+			}
+
+			function loginok() {
+				mui.openWindow({
+					url: "index.html",
+					id: "index.html",
+					styles: {},
+					extras: {},
+					crateNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+					show: {
+						autoShow: true, //页面loaded事件发生后自动显示，默认为true
+						aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+						duration: "200" //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+					}
+				})
+				tempsave();
+				savepassword();
+				
+			}
+		</script>
+	</body>
+
+</html>

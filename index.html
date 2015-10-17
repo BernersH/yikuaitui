@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>首页</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			
+			var wodeid = null;
+			mui.plusReady(function() {
+				var jsonobj = {
+					"download": "yes"
+				};
+				var str = jsonobj;
+				var url = surl + "project/getAllPro";
+				mui.ajax(url, {
+					data: str,
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						wodeid = data.loginId
+						var comm = new Array();
+						var icon = new Array();
+						var id = new Array();
+						var joined_number = new Array();
+						var praise = new Array();
+						var repost = new Array();
+						var roast = new Array();
+						var status = new Array();
+						var upload = new Array();
+						var userid = new Array();
+						var username = new Array();
+						var splitupload = new Array();
+						var newimsrc = new Array();
+						var li = new Array(); 
+						var act_time = new Array();
+						var ulele = document.getElementById("content_show");
+						var ulinner = "";
+						var pro_type = new Array();
+						var liele = ulele.getElementsByTagName("li");
+						var split = new Array();
+						var time = new Array();
+						data = data.plist;
+						for (i = 0; i < data.length; i++) {
+							comm[i] = data[i].comment;
+							icon[i] = data[i].icon;
+							id[i] = data[i].id;
+							joined_number[i] = data[i].joined_number;
+							praise[i] = data[i].praise;
+							repost[i] = data[i].repost;
+							roast[i] = data[i].roast;
+							status[i] = data[i].status;
+							upload[i] = data[i].upload;
+							if (upload[i].indexOf("]") > -1) {
+								splitupload = upload[i].split("\"");
+								newimsrc[i] = serip + splitupload[1];
+							} else {
+								newimsrc[i] = serip + upload[i];
+							}
+							userid[i] = data[i].userId;
+							username[i] = data[i].username;
+							act_time[i] = data[i].time;
+							split[i] = act_time[i].split(" ")[0];
+							time[i] = split[0];
+							pro_type[i] = data[i].pro_type;
+							li[i] = "<li class=\"content\" id=\"" + pro_type[i] + "\"><img src = \"" + newimsrc[i] + "\" style=\"width: 88%;height: 300px;\"  id=\"" + id[i] + "\"/>" + "<div class=\"personofworks \"><div class=\"user\"> <span id=\"portrait\"> <img src=\"" + serip + icon[i] + "\" /> </span><span class=\"namename \">" + username[i] + "</span></div>" + "<div class=\"feel\"> <img src = \"Myicon/zan.png\" class = \"icon\"/>" + "<span>" + praise[i] + "</span>" + "<img src = \"Myicon/tread icon.png\" class = \"icon\"/>" + "<span>" + roast[i] + "</span>" + "<img src = \" Myicon/pinglun.png\" class = \"icon\"/>" + "<span>" + comm[i] + "</span>" + "<img src = \"Myicon/share icon.png\" class = \"icon\"/>" + "<span>" + repost[i] + "</span>" + "</div>" + "<div id=\"time3\">" + "发布时间：" + split[i] + "</div>" + "<div class = 'line3 clear'>" + " " + "</div>";
+							
+							ulinner += li[i];
+							ulele.innerHTML = ulinner;
+						   }
+									 
+					},
+					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+						mui.toast("网络连接错误");
+						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+						return false;
+					}
+				})
+			})
+		</script>
+	</head>
+
+	<body>
+
+		<div class="mui-content" style="z-index:100;">
+			<header>
+				<div class="side" id="sidelistbotton"><img src="Myicon/menu icon.png" alt="" class="" /></div>
+				<img src="Myicon/list.png" style="position:static;float: right;margin-right: 12px;margin-top:12px;background: #1E1D1D;width: 23px;height:23px;" id="tuilist" />
+			</header>
+
+			<div class="search">
+				<input type="text" name="search" id="search" value="" placeholder="搜名称，搜标签" />
+				<label for="" id="searchbtn"><img src="Myicon/hunt icon.png" /></label>
+
+			</div>
+
+			<ul class="content-list" id="content_show">
+			</ul>
+			<div class="sidelist" id="sidelist">
+				<div class="sidelist-top">
+					<div id="segmentedControl" class="mui-segmented-control" style="margin-top: 0; color: white;">
+						<a class="mui-control-item mui-active fontblue" href="#item1" style="line-height: 48px;" id="upblue">
+				时间
+			<div class="blueline"> </div>
+						</a>
+						<a class="mui-control-item fontred" href="#item2" style="line-height: 48px;" id="upred">
+				热度
+			<div class="redline"> </div>
+						</a>
+                       
+                       <a class="mui-control-item fontred" href="#item3" style="line-height: 48px;" id="upgreen">
+				距离
+			<div class="greenline"> </div>
+						</a>
+                       
+                    
+                    
+					</div>
+				</div>
+				<div class="sidelist-content">
+					<div id="item1" class="mui-control-content mui-active">
+						<div class="sidelist-things1">
+							<ul id="sidelistblue">
+								<li>活动 <img src="Myicon/sidebar icon.png" />
+									<div class="liline"> </div>
+								</li>
+								<li>作品 <img src="Myicon/sidebar icon.png" />
+									<div class="liline"> </div>
+								</li>
+								<li>任务 <img src="Myicon/sidebar icon.png" />
+									<div class="liline"> </div>
+								</li>
+							</ul>
+							<div class="sidelistsure" id="sidelistsure1">确定</div>
+						</div>
+
+					</div>
+
+					<div id="item2" class="mui-control-content">
+						<div class="sidelist-things2">
+							<ul id="sidelistred">
+								<li>活动 <img src="Myicon/sidebar icon.png" />
+									<div class="liline"> </div>
+								</li>
+								<li>作品 <img src="Myicon/sidebar icon.png" />
+									<div class="liline"> </div>
+								</li>
+								<li>任务 <img src="Myicon/sidebar icon.png" />
+									<div class="liline"> </div>
+								</li>
+							</ul>
+							<div class="sidelistsure" id="sidelistsure2">确定</div>
+						</div>
+					</div>
+				<div id="item3" class="mui-control-content ">
+						<div class="sidelist-things3">
+							<ul id="sidelistgreen">
+								<li>活动 <img src="Myicon/sidebar icon.png" />
+									<div class="liline"> </div>
+								</li>
+								<li>作品 <img src="Myicon/sidebar icon.png" />
+									<div class="liline"> </div>
+								</li>
+								<li>任务 <img src="Myicon/sidebar icon.png" />
+									<div class="liline"> </div>
+								</li>
+							</ul>
+							<div class="sidelistsure" id="sidelistsure3">确定</div>
+						</div>
+
+					</div>
+				
+				
+				
+				</div>
+
+			</div>
+			<div class="flowlabel" id="flowlabel">
+				<div class="labelslist">
+					<ul class="labelred">
+					<li id='label1'>音乐</li>
+					<li id='label2'>搞笑</li>
+					<li id='label3'>男神</li>
+					<li id='label4'>情感</li>
+				</ul>
+				<ul class="labelblue">
+					<li id='label5'>饮食</li>
+					<li id='label6'>创意</li>
+					<li id='label7'>运动</li>
+				</ul>
+				<ul class="labelgreen">
+					<li id='label8'>故事</li>
+					<li id='label9'>互动</li>
+					<li id='label10'>户外</li>
+				</ul>
+					<div class="labelsure">
+						<input type="submit" name="" id="labelsure" value="确定" />
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<footer class="navigation ">
+
+			<img src="Myicon/home page icon.png" id="index" style="height: 35px;position: fixed;bottom: 10px;left: 6%;background:rgba(30,28,29,0.1)" />
+			<img src="Myicon/tui.png" id="Tuituitui" style="height:90px;width:90px;position: fixed;bottom: 10px;left:38%;background: none;" />
+			<img src="Myicon/personal center.png" id="PersonalCenter" style="height: 35px;position: fixed;right: 6%;bottom: 10px; background: rgba(30,29,29,0.1)" />
+
+		</footer>
+		<script src="js/toggleClass.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript">
+			mui.init();
+			var typeofflag = null;
+			var typeofup = 0;
+			var sidelistbotton = document.getElementById("sidelistbotton");
+			var sidelist = document.getElementById("sidelist");
+			var sidelistblue = document.getElementById("sidelistblue");
+			var sidelistred = document.getElementById("sidelistred");
+			var li = sidelistblue.getElementsByTagName("li");
+			var lired = sidelistred.getElementsByTagName("li");
+			var ligreen = sidelistgreen.getElementsByTagName("li");
+			var src1 = "Myicon/blueflag.png";
+			var src2 = "Myicon/sidebar icon.png";
+			var src3 = "Myicon/redflag.png";
+			var src4 = "Myicon/greenflag.png";
+			var localUrl = "http://192.168.31.180:8020/yikuaitui/";
+			var imgSrc1 = localUrl + src1;
+			var imgSrc2 = localUrl + src2;
+			var imgSrc3 = localUrl + src3;
+			var imgSrc4 = localUrl + src4;
+			var sidelistsure1 = document.getElementById("sidelistsure1");
+			var sidelistsure2 = document.getElementById("sidelistsure2");
+			var sidelistsure3 = document.getElementById("sidelistsure3");
+			var search = document.getElementById("search");
+			var flowlabel = document.getElementById("flowlabel");
+			var labelsure = document.getElementById("labelsure");
+			var labelli = flowlabel.getElementsByTagName('li');
+			var upblue = document.getElementById("upblue");
+			var upred = document.getElementById("upred");
+			upblue.addEventListener('tap', function() {
+				typeofup = 0;
+			});
+			upred.addEventListener('tap', function() {
+				typeofup = 1;
+			});
+			search.addEventListener('tap', function() {
+				flowlabel.style.display = 'block';
+			})
+			 
+			for (i = 0; i < labelli.length; i++) {
+				labelli[i].addEventListener('tap', function() {
+					this.style.background = '#4EB5D7';
+				})
+			}
+			sidelistbotton.addEventListener('tap', function() {
+				
+				if(sidelist.style.display == 'none'){
+					sidelist.style.display = 'block';
+				}else{
+					sidelist.style.display = 'none';
+				}
+				
+			})
+			 li[0].addEventListener('tap', function() {
+				typeofflag = 0;
+				removeSiblingsImg(this);
+				toggleThis(this);
+			})
+			 li[1].addEventListener('tap', function() {
+				typeofflag = 1;
+				removeSiblingsImg(this);
+				toggleThis(this);
+			})
+			 li[2].addEventListener('tap', function() {
+				typeofflag = 2;
+				removeSiblingsImg(this);
+				toggleThis(this);
+			})
+			 lired[0].addEventListener('tap', function() {
+				typeofflag = 0;
+				removeSiblingsImg(this);
+				toggleThisRed(this);
+			})
+			 lired[1].addEventListener('tap', function() {
+				typeofflag = 1;
+				removeSiblingsImg(this);
+				toggleThisRed(this);
+			})
+			 lired[2].addEventListener('tap', function() {
+				typeofflag = 2;
+				removeSiblingsImg(this);
+				toggleThisRed(this);
+			})
+              ligreen[0].addEventListener('tap', function() {
+				typeofflag = 0;
+				removeSiblingsImg(this);
+				toggleThisGreen(this);
+			})
+			 ligreen[1].addEventListener('tap', function() {
+				typeofflag = 1;
+				removeSiblingsImg(this);
+				toggleThisGreen(this);
+			})
+			 ligreen[2].addEventListener('tap', function() {
+				typeofflag = 2;
+				removeSiblingsImg(this);
+				toggleThisGreen(this);
+			})
+      
+      
+      
+      
+      
+      
+			function toggleThis(e) {
+				toggleFlagImg(e.childNodes[1], src1, src2);
+			}
+
+			function toggleFlagImg(imgobj, src1, src2) {
+				if (imgobj.src != imgSrc2) {
+					imgobj.src = src1;
+				} else {
+					imgobj.src = src2;
+				}
+			}
+
+			function removeSiblingsImg(e) {
+				var othli = Siblings(e);
+				for (i = 0; i < othli.length; i++) {
+					othli[i].childNodes[1].src = "Myicon/sidebar icon.png";
+				}
+			}
+
+			function toggleThisRed(e) {
+				toggleFlagImgRed(e.childNodes[1], src2, src3);
+			}
+
+			function toggleFlagImgRed(imgobj, src2, src3) {
+				if (imgobj.src === imgSrc3) {
+					imgobj.src = src2;
+				} else {
+					imgobj.src = src3;
+				}
+			}
+			function toggleThisGreen(e) {
+				toggleFlagImgGreen(e.childNodes[1], src2, src4);
+			}
+			
+			function toggleFlagImgGreen(imgobj, src2, src4) {
+				if (imgobj.src === imgSrc4) {
+					imgobj.src = src2;
+				} else {
+					imgobj.src = src4;
+				}
+			}
+			
+			
+			
+			sidelistsure1.addEventListener('tap', function() {
+				sidelist.style.display = 'none';
+				var jsonObj = {
+					'typeofup': typeofup,
+					'typeofflag': typeofflag
+				};
+				var str = jsonObj;
+				var url = surl + "project/getProjectByFlag";
+				mui.ajax(url, {
+					data: str,
+					dataType: "json",
+					type: "post",
+					timeout: 10000,
+					success: function(data) {
+						if (data.state == "0") {
+							mui.toast('抱歉，暂时没有');
+						} else if (data.state == "1") {
+							
+							var comm = new Array();
+							var icon = new Array();
+							var id = new Array();
+							var joined_number = new Array();
+							var praise = new Array();
+							var repost = new Array();
+							var roast = new Array();
+							var status = new Array();
+							var upload = new Array();
+							var userid = new Array();
+							var username = new Array();
+							var splitupload = new Array();
+							var newimsrc = new Array();
+							var li = new Array();
+							var act_time = new Array();
+							var ulele = document.getElementById("content_show");
+							var ulinner = "";
+							var pro_type = new Array();
+							var liele = ulele.getElementsByTagName("li");
+							var split = new Array();
+							var time = new Array();
+							for (i = 0; i < data.list.length; i++) {
+								
+								comm[i] = data.list[i].comment;
+								icon[i] = data.list[i].icon;
+								id[i] = data.list[i].id;
+								joined_number[i] = data.list[i].joined_number;
+								praise[i] = data.list[i].praise;
+								repost[i] = data.list[i].repost;
+								roast[i] = data.list[i].roast;
+								status[i] = data.list[i].status;
+								upload[i] = data.list[i].upload;
+								splitupload = upload[i].split("\"");
+								newimsrc[i] = serip + splitupload[1];
+								userid[i] = data.list[i].userId;
+								username[i] = data.list[i].username;
+								act_time[i] = data.list[i].time;
+								split[i] = act_time[i].split(" ")[0];
+								time[i] = split[0];
+								pro_type[i] = data.list[i].pro_type;
+								li[i] = "<li class=\"content\" id=\"" + pro_type[i] + "\"><img src = \"" + newimsrc[i] + "\" style=\"width: 88%;height: 300px;\"  id=\"" + id[i] + "\"/>" + "<div class=\"personofworks \"><div class=\"user\"> <span id=\"portrait\"> <img src=\"" + serip + icon[i] + "\" /> </span><span class=\"namename \">" + username[i] + "</span></div>" + "<div class=\"feel\"> <img src = \"Myicon/zan.png\" class = \"icon\"/>" + "<span>" + praise[i] + "</span>" + "<img src = \"Myicon/tread icon.png\" class = \"icon\"/>" + "<span>" + roast[i] + "</span>" + "<img src = \"Myicon/pinglun.png\" class = \"icon\"/>" + "<span>" + comm[i] + "</span>" + "<img src = \"Myicon/share icon.png\" class = \"icon\"/>" + "<span>" + repost[i] + "</span>" + "</div>" + "<div id=\"time3\">" + "发布时间：" + split[i] + "</div>" + "<div class = 'line3 clear'>" + " " + "</div>";
+								ulinner += li[i];
+							    
+							}
+							ulele.innerHTML = ulinner;
+						}
+					}
+				});
+			});
+			sidelistsure2.addEventListener('tap', function() {
+				sidelist.style.display = 'none';
+				var jsonObj = {
+					'typeofup': typeofup,
+					'typeofflag': typeofflag
+				};
+				var str = jsonObj;
+				var url = surl + "project/getProjectByFlag";
+				mui.ajax(url, {
+					data: str,
+					dataType: "json",
+					type: "post",
+					timeout: 10000,
+					success: function(data) {
+									if (data.state == "0") {
+										mui.toast('抱歉，暂时没有');
+									} else if (data.state == "1") {
+										var comm = new Array();
+										var icon = new Array();
+										var id = new Array();
+										var joined_number = new Array();
+										var praise = new Array();
+										var repost = new Array();
+										var roast = new Array();
+										var status = new Array();
+										var upload = new Array();
+										var userid = new Array();
+										var username = new Array();
+										var splitupload = new Array();
+										var newimsrc = new Array();
+										var li = new Array();
+										var act_time = new Array();
+										var ulele = document.getElementById("content_show");
+										var ulinner = "";
+										var pro_type = new Array();
+										var liele = ulele.getElementsByTagName("li");
+										var split = new Array();
+										var time = new Array();
+										for (i = 0; i < data.length; i++) {
+											comm[i] = data[i].comment;
+											icon[i] = data[i].icon;
+											id[i] = data[i].id;
+											joined_number[i] = data[i].joined_number;
+											praise[i] = data[i].praise;
+											repost[i] = data[i].repost;
+											roast[i] = data[i].roast;
+											status[i] = data[i].status;
+											upload[i] = data[i].upload;
+											splitupload = upload[i].split("\"");
+											newimsrc[i] = serip + splitupload[1];
+											userid[i] = data[i].userId;
+											username[i] = data[i].username;
+											act_time[i] = data[i].time;
+											split[i] = act_time[i].split(" ")[0];
+											time[i] = split[0];
+											pro_type[i] = data[i].pro_type;
+											li[i] = "<li class=\"content\" id=\"" + pro_type[i] + "\"><img src = \"" + newimsrc[i] + "\" style=\"width: 88%;height: 300px;\"  id=\"" + id[i] + "\"/>" + "<div class=\"personofworks \"><div class=\"user\"> <span id=\"portrait\"> <img src=\"" + serip + icon[i] + "\" /> </span><span class=\"namename \">" + username[i] + "</span></div>" + "<div class=\"feel\"> <img src = \"Myicon/zan.png\" class = \"icon\"/>" + "<span>" + praise[i] + "</span>" + "<img src = \"Myicon/tread icon.png\" class = \"icon\"/>" + "<span>" + roast[i] + "</span>" + "<img src = \"Myicon/pinglun.png\" class = \"icon\"/>" + "<span>" + comm[i] + "</span>" + "<img src = \"Myicon/share icon.png\" class = \"icon\"/>" + "<span>" + repost[i] + "</span>" + "</div>" + "<div id=\"time3\">" + "发布时间：" + split[i] + "</div>" + "<div class = 'line3 clear'>" + " " + "</div>";
+											ulinner += li[i];
+										}
+										ulele.innerHTML = ulinner;
+									}
+								}
+							})
+					})
+						sidelistsure3.addEventListener('tap', function() {
+				sidelist.style.display = 'none';
+				var jsonObj = {
+					'typeofup': typeofup,
+					'typeofflag': typeofflag
+				};
+				var str = jsonObj;
+				var url = surl + "project/getProjectByFlag";
+				mui.ajax(url, {
+					data: str,
+					dataType: "json",
+					type: "post",
+					timeout: 10000,
+					success: function(data) {
+						if (data.state == "0") {
+							mui.toast('抱歉，暂时没有');
+						} else if (data.state == "1") {
+							
+							var comm = new Array();
+							var icon = new Array();
+							var id = new Array();
+							var joined_number = new Array();
+							var praise = new Array();
+							var repost = new Array();
+							var roast = new Array();
+							var status = new Array();
+							var upload = new Array();
+							var userid = new Array();
+							var username = new Array();
+							var splitupload = new Array();
+							var newimsrc = new Array();
+							var li = new Array();
+							var act_time = new Array();
+							var ulele = document.getElementById("content_show");
+							var ulinner = "";
+							var pro_type = new Array();
+							var liele = ulele.getElementsByTagName("li");
+							var split = new Array();
+							var time = new Array();
+							for (i = 0; i < data.list.length; i++) {
+								
+								comm[i] = data.list[i].comment;
+								icon[i] = data.list[i].icon;
+								id[i] = data.list[i].id;
+								joined_number[i] = data.list[i].joined_number;
+								praise[i] = data.list[i].praise;
+								repost[i] = data.list[i].repost;
+								roast[i] = data.list[i].roast;
+								status[i] = data.list[i].status;
+								upload[i] = data.list[i].upload;
+								splitupload = upload[i].split("\"");
+								newimsrc[i] = serip + splitupload[1];
+								userid[i] = data.list[i].userId;
+								username[i] = data.list[i].username;
+								act_time[i] = data.list[i].time;
+								split[i] = act_time[i].split(" ")[0];
+								time[i] = split[0];
+								pro_type[i] = data.list[i].pro_type;
+								li[i] = "<li class=\"content\" id=\"" + pro_type[i] + "\"><img src = \"" + newimsrc[i] + "\" style=\"width: 88%;height: 300px;\"  id=\"" + id[i] + "\"/>" + "<div class=\"personofworks \"><div class=\"user\"> <span id=\"portrait\"> <img src=\"" + serip + icon[i] + "\" /> </span><span class=\"namename \">" + username[i] + "</span></div>" + "<div class=\"feel\"> <img src = \"Myicon/zan.png\" class = \"icon\"/>" + "<span>" + praise[i] + "</span>" + "<img src = \"Myicon/tread icon.png\" class = \"icon\"/>" + "<span>" + roast[i] + "</span>" + "<img src = \"Myicon/pinglun.png\" class = \"icon\"/>" + "<span>" + comm[i] + "</span>" + "<img src = \"Myicon/share icon.png\" class = \"icon\"/>" + "<span>" + repost[i] + "</span>" + "</div>" + "<div id=\"time3\">" + "发布时间：" + split[i] + "</div>" + "<div class = 'line3 clear'>" + " " + "</div>";
+								ulinner += li[i];
+							    
+							}
+							ulele.innerHTML = ulinner;
+						}
+					}
+				});
+			});
+			
+			
+			var index = document.getElementById("index");
+			var search1 = document.getElementById("searchbtn");
+			var tuituitui = document.getElementById("Tuituitui");
+			var personal = document.getElementById("PersonalCenter");
+			index.addEventListener('tap', function() {
+			    window.location.reload();
+				mui.openWindow({
+					url: 'index.html',
+					id: 'index.html'
+				})
+			})
+			 tuituitui.addEventListener('tap', function() {
+					mui.openWindow({
+						url: 'Tuituitui.html',
+						id: 'Tuituitui.html'
+					})
+				})
+				//文字搜索功能实现
+			 search1.addEventListener('tap', function() {
+			 	var searchcont = document.getElementById("search").value;
+				if (searchcont == "" || searchcont == null) {
+					mui.toast("请输入搜索内容");
+				} else {
+					var jsonObj = {
+						'searchcont': searchcont
+					};
+					var str = jsonObj;
+					var url = surl + "project/selectProject";
+					mui.ajax(url, {
+						data: str,
+						dataType: "json",
+						type: "post",
+						timeout: 10000,
+						success: function(data) {
+										if (data.state == "0") {
+											mui.toast('没有数据');
+										    
+										} else if (data.state == "1") {
+											for (i = 0; i < labelli.length; i++) {
+					                      labelli[i].style.background = 'none';
+				               }
+				                          flowlabel.style.display = 'none';
+											var comm = new Array();
+											var icon = new Array();
+											var id = new Array();
+											var joined_number = new Array();
+											var praise = new Array();
+											var repost = new Array();
+											var roast = new Array();
+											var status = new Array();
+											var upload = new Array();
+											var userid = new Array();
+											var username = new Array();
+											var splitupload = new Array();
+											var newimsrc = new Array();
+											var li = new Array();
+											var act_time = new Array();
+											var ulele = document.getElementById("content_show");
+											var ulinner = "";
+											var pro_type = new Array();
+											var liele = ulele.getElementsByTagName("li");
+											var split = new Array();
+											var time = new Array();
+											for (i = 0; i < data.list.length; i++) {
+												comm[i] = data.list[i].comment;
+												icon[i] = data.list[i].icon;
+												id[i] = data.list[i].id;
+//												joined_number[i] = data.list[i].joined_number;
+												praise[i] = data.list[i].praise;
+												repost[i] = data.list[i].repost;
+												roast[i] = data.list[i].roast;
+												status[i] = data.list[i].status;
+												upload[i] = data.list[i].upload;
+												splitupload = upload[i].split("\"");
+												newimsrc[i] = serip + splitupload[1];
+												userid[i] = data.list[i].userId;
+												username[i] = data.list[i].username;
+												act_time[i] = data.list[i].time;
+												split[i] = act_time[i].split(" ")[0];
+												time[i] = split[0];
+												pro_type[i] = data.list[i].pro_type;
+												li[i] = "<li class=\"content\" id=\"" + pro_type[i] + "\"><img src = \"" + newimsrc[i] + "\" style=\"width: 88%;height: 300px;\"  id=\"" + id[i] + "\"/>" + "<div class=\"personofworks \"><div class=\"user\"> <span id=\"portrait\"> <img src=\"" + serip + icon[i] + "\" /> </span><span class=\"namename \">" + username[i] + "</span></div>" + "<div class=\"feel\"> <img src = \"Myicon/zan.png\" class = \"icon\"/>" + "<span>" + praise[i] + "</span>" + "<img src = \"Myicon/tread icon.png\" class = \"icon\"/>" + "<span>" + roast[i] + "</span>" + "<img src = \"Myicon/pinglun.png\" class = \"icon\"/>" + "<span>" + comm[i] + "</span>" + "<img src = \"Myicon/share icon.png\" class = \"icon\"/>" + "<span>" + repost[i] + "</span>" + "</div>" + "<div id=\"time3\">" + "发布时间：" + split[i] + "</div>" + "<div class = 'line3 clear'>" + " " + "</div>";
+												ulinner += li[i];
+											   
+											}
+											ulele.innerHTML = ulinner;
+										}
+									}
+								})
+							}
+			})
+			 personal.addEventListener('tap', function() {
+				localStorage.loginId = wodeid;
+					mui.openWindow({
+						url: 'PersonalCenter.html',
+						id: 'PersonalCenter.html'
+					})
+			});
+			var tuilist = document.getElementById("tuilist");
+			tuilist.addEventListener('tap', function() {
+				mui.openWindow({
+					url: "Tuilist.html",
+					id: "Tuilist.html"
+				})
+			})
+			 mui('#content_show').on('tap', 'li', function() {
+				localStorage.tuiId = "";
+				var id1 = this.getAttribute('id');
+				var tuiId = this.firstChild.getAttribute('id');
+				if (id1 == "active") {
+					localStorage.gettuiId = tuiId;
+					//alert(tuiId);
+					mui.openWindow({
+						url: 'DetailsofAction.html',
+						id: 'DetailsofAction.html'
+					})
+				} else if (id1 == "requirement") {
+					localStorage.gettuiId = tuiId;
+					//						alert(tuiId);
+					mui.openWindow({
+						url: 'DetailsofTasks.html',
+						id: 'DetailsofTasks.html'
+					})
+				} else if (id1 == "work") {
+					localStorage.gettuiId = tuiId;
+					//alert(tuiId);
+					mui.openWindow({
+						url: 'DetailsofWorks.html',
+						id: 'DetailsofWorks.html'
+					})
+				}
+			})
+			 
+			 
+			 //标签选择部分
+			 Array.prototype.remove = function(obj) {
+				for (var i = 0; i < this.length; i++) {
+					var temp = this[i];
+					if (!isNaN(obj)) {
+						temp = i;
+					}
+					if (temp == obj) {
+						for (var j = i; j < this.length; j++) {
+							this[j] = this[j + 1];
+						}
+						this.length = this.length - 1;
+					}
+				}
+			}
+			var num = new Array();
+			var y = 0;
+			var numcontent;
+			var labels1 = document.getElementById("search");
+			mui('.labelslist').on('tap', 'li', function() {
+				
+				var newcontent = this.innerText;
+				numcontent = num.join();
+				if (numcontent.indexOf(newcontent) > -1) {} else {
+					num[y] = this.innerText;
+					y++;
+					var that = this;
+					this.style.backgroundColor = "#4EB5D7";
+					var newspan = document.createElement('span');
+					newspan.setAttribute('class', 'addedLabel');
+					newspan.innerText = this.innerText;
+					labels1.appendChild(newspan);
+					newspan.addEventListener('tap', function() {
+						var thiscontent = this.innerText;
+						
+						for (j = 0; j < num.length; j++) {
+							if (num[j] == thiscontent) {
+								num.remove(j);
+							} else {}
+						}
+						this.remove();
+						that.style.backgroundColor = "";
+					})
+				}
+			})
+			
+			labelsure.addEventListener('tap', function() {
+				
+				
+				
+					var jsonObj = {
+						'searchcont': num[num.length-1]
+					};
+					var str = jsonObj;
+					var url = surl + "project/selectProject";
+					mui.ajax(url, {
+						data: str,
+						dataType: "json",
+						type: "post",
+						timeout: 10000,
+						success: function(data) {
+										if (data.state == "0") {
+											mui.toast('没有数据');
+										    
+										} else if (data.state == "1") {
+				                         
+											var comm = new Array();
+											var icon = new Array();
+											var id = new Array();
+											var joined_number = new Array();
+											var praise = new Array();
+											var repost = new Array();
+											var roast = new Array();
+											var status = new Array();
+											var upload = new Array();
+											var userid = new Array();
+											var username = new Array();
+											var splitupload = new Array();
+											var newimsrc = new Array();
+											var li = new Array();
+											var act_time = new Array();
+											var ulele = document.getElementById("content_show");
+											var ulinner = "";
+											var pro_type = new Array();
+											var liele = ulele.getElementsByTagName("li");
+											var split = new Array();
+											var time = new Array();
+											for (i = 0; i < data.list.length; i++) {
+												comm[i] = data.list[i].comment;
+												icon[i] = data.list[i].icon;
+												id[i] = data.list[i].id;
+//												joined_number[i] = data.list[i].joined_number;
+												praise[i] = data.list[i].praise;
+												repost[i] = data.list[i].repost;
+												roast[i] = data.list[i].roast;
+												status[i] = data.list[i].status;
+												upload[i] = data.list[i].upload;
+												splitupload = upload[i].split("\"");
+												newimsrc[i] = serip + splitupload[1];
+												userid[i] = data.list[i].userId;
+												username[i] = data.list[i].username;
+												act_time[i] = data.list[i].time;
+												split[i] = act_time[i].split(" ")[0];
+												time[i] = split[0];
+												pro_type[i] = data.list[i].pro_type;
+												li[i] = "<li class=\"content\" id=\"" + pro_type[i] + "\"><img src = \"" + newimsrc[i] + "\" style=\"width: 88%;height: 300px;\"  id=\"" + id[i] + "\"/>" + "<div class=\"personofworks \"><div class=\"user\"> <span id=\"portrait\"> <img src=\"" + serip + icon[i] + "\" /> </span><span class=\"namename \">" + username[i] + "</span></div>" + "<div class=\"feel\"> <img src = \"Myicon/zan.png\" class = \"icon\"/>" + "<span>" + praise[i] + "</span>" + "<img src = \"Myicon/tread icon.png\" class = \"icon\"/>" + "<span>" + roast[i] + "</span>" + "<img src = \"Myicon/pinglun.png\" class = \"icon\"/>" + "<span>" + comm[i] + "</span>" + "<img src = \"Myicon/share icon.png\" class = \"icon\"/>" + "<span>" + repost[i] + "</span>" + "</div>" + "<div id=\"time3\">" + "发布时间：" + split[i] + "</div>" + "<div class = 'line3 clear'>" + " " + "</div>";
+												
+												ulinner += li[i];
+											}
+											ulele.innerHTML = ulinner;
+						                   
+						}
+									
+								}
+						})
+			
+				for (i = 0; i < labelli.length; i++) {
+					labelli[i].style.background = 'none';
+				}
+				flowlabel.style.display = 'none';
+			})
+			
+//			num = '';
+			
+			
+			
+		</script>
+	</body>
+
+</html>

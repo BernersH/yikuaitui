@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>推手榜</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			p {
+				padding: 0;
+				margin: 0;
+			}
+			.sunicon {
+				width: 15px;
+				height: 15px;
+				display: inline-block;
+				background-image:url(Myicon/sun icon.png)
+				background-position: left top;
+				background-repeat: no-repeat;
+				background-size: 15px 15px;
+			}
+			.moonicon {
+				width: 15px;
+				height: 15px;
+				display: inline-block;
+				background-image: url(Myicon/moon icon.png);
+				background-position: left top;
+				background-repeat: no-repeat;
+				background-size: 15px 15px;
+			}
+			.staricon {
+				width: 15px;
+				height: 15px;
+				display: inline-block;
+				background-image: url(Myicon/star icon.png);
+				background-position: left top;
+				background-repeat: no-repeat;
+				background-size: 15px 15px;
+			}
+			.loveicon {
+				font-size: 12px;
+				color: #fff;
+				width: 35px;
+				box-sizing: border-box;
+				padding-left: 12px;
+				height: 20px;
+				display: inline-block;
+				background-image: url(Myicon/zan.png);
+			
+				background-position: 0 5px;
+				background-repeat: no-repeat;
+				background-size: 10px 10px;
+			}
+			.hateicon {
+				font-size: 12px;
+				color: #fff;
+				width: 35px;
+				padding-left: 12px;
+				height: 20px;
+				display: inline-block;
+				background-image: url(Myicon/treadicon.png);
+				background-position: 0 5px;
+				background-repeat: no-repeat;
+				background-size: 10px 10px;
+			}
+			.commicon {
+				font-size: 12px;
+				color: #fff;
+				width: 35px;
+				padding-left: 12px;
+				height: 20px;
+				display: inline-block;
+				background-image: url(Myicon/pinglun.png);
+				background-position: 0 5px;
+				background-repeat: no-repeat;
+				background-size: 10px 10px;
+			}
+			.shareicon {
+				font-size: 12px;
+				color: #fff;
+				width: 35px;
+				padding-left: 12px;
+				height: 20px;
+				display: inline-block;
+				background-image: url(Myicon/shareicon.png);
+				background-position: 0 5px;
+				background-repeat: no-repeat;
+				background-size: 10px 10px;
+			}
+			.tuilist {
+				padding: 0 5%;
+			}
+			.tuilist>li {
+				padding: 20px;
+				height: 100px;
+				margin: 5px 0;
+				box-sizing: border-box;
+			}
+			.searchshow {
+				padding: 0 5%;
+			}
+			.searchshow>li {
+				padding: 20px;
+				height: 100px;
+				margin: 5px 0;
+				box-sizing: border-box;
+			}
+			.tuilist>li:first-child {
+				background-image: url(Myicon/gold crown1.png);
+				background-position: 0 0;
+				background-repeat: repeat-y;
+				background-size: 100% 100%;
+			}
+			.tuifirst {
+				background-image: url(Myicon/gold crown1.png);
+				background-position: 0 0;
+				background-repeat: repeat-y;
+				background-size: 100% 100%;
+			}
+			.tuilist>li:nth-child(2) {
+				background-image: url(Myicon/silver crown1.png);
+				background-position: 0 0;
+				background-repeat: repeat-y;
+				background-size: 100% 100%;
+			}
+			.tuisecond {
+				background-image: url(Myicon/silver crown1.png);
+				background-position: 0 0;
+				background-repeat: repeat-y;
+				background-size: 100% 100%;
+			}
+			.tuilist>li:nth-child(3) {
+				background-image: url(Myicon/copper crown1.png);
+				background-position: 0 0;
+				background-repeat: repeat-y;
+				background-size: 100% 100%;
+			}
+			.tuithird {
+				background-image: url(Myicon/copper crown1.png);
+				background-position: 0 0;
+				background-repeat: repeat-y;
+				background-size: 100% 100%;
+			}
+			.tuilist>li:nth-child(n+4) {
+				background-image: url(Myicon/ALT icon.png);
+				background-position: 0 0;
+				background-repeat: repeat-y;
+				background-size: 100% 100%;
+			}
+			.tuicommon {
+				background-image: url(Myicon/ALT icon.png);
+				background-position: 0 0;
+				background-repeat: repeat-y;
+				background-size: 100% 100%;
+			}
+			.tuilist>li>.leftpart {
+				float: left;
+				width: 30%;
+				height: 100%;
+			}
+			.tuilist>li>.midline {
+				float: left;
+				width: 2%;
+			}
+			.tuilist>li>.rightpart {
+				float: left;
+				width: 68%;
+			}
+			.searchshow>li>.leftpart {
+				float: left;
+				width: 30%;
+				height: 100%;
+			}
+			.searchshow>li>.midline {
+				float: left;
+				width: 2%;
+			}
+			.searchshow>li>.rightpart {
+				float: left;
+				width: 68%;
+			}
+			.leftpart>span {
+				position: absolute;
+				margin: 25px 0 0 -5px;
+				z-index: 0;
+			}
+			.leftpart>img {
+				height: 55px;
+				width: 55px;
+				border-radius: 100%;
+				margin-left: 10px;
+				margin-top: 5px;
+			}
+			.midline>span {
+				display: inline-block;
+				margin-top: 10px;
+				height: 50px;
+				width: 1px;
+				background-color: #6c6b69;
+			}
+			.rightpart>p:first-child {
+				font-size: 13px;
+			}
+			.rightpart>p:nth-child(2) {
+				margin: 5px 0 0 5px;
+				overflow: hidden;
+				white-space: nowrap;
+				max-width: 90%;
+			}
+			.highlight {
+				color: #ffe718;
+			}
+			.white {
+				color: #fff;
+			}
+		</style>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				var jsonobj = {
+					"id": "tuilist"
+				};
+				var str = jsonobj;
+				var url = surl + "user/getUserRank";
+				mui.ajax(url, {
+					data: str,
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						var actDegree = new Array();
+						var comm = new Array();
+						var rank = new Array();
+						var icon = new Array();
+						var id = new Array();
+						var sunNum = new Array();
+						var moonNum = new Array();
+						var starNum = new Array();
+						var praise = new Array();
+						var repost = new Array();
+						var roast = new Array();
+						var username = new Array();
+						var li = new Array();
+						var ulele = document.getElementById("tuilist");
+						var ulinner = "";
+						for (i = 0; i < data.length; i++) {
+							actDegree[i] = data[i].act_degree;
+							comm[i] = data[i].comment;
+							icon[i] = serip + data[i].icon;
+							id[i] = data[i].id;
+							rank[i] = data[i].rank;
+							sunNum[i] = data[i].sunNum;
+							moonNum[i] = data[i].moonNUm;
+							starNum[i] = data[i].starNum;
+							praise[i] = data[i].praise;
+							repost[i] = data[i].repost;
+							roast[i] = data[i].roast;
+							username[i] = data[i].username;
+							li[i] = "";
+							li[i] += "<li><div class=\"leftpart\"><span>" + rank[i] + ".</span>";
+							li[i] += "<img src=\"" + icon[i] + "\"/></div>";
+							li[i] += "<div class=\"midline\"><span></span></div>";
+							li[i] += "<div class=\"rightpart\"><p>";
+							li[i] += "<span class=\"white\">" + username[i] + "</span>";
+							li[i] += "<span class=\"highlight\">活跃值：" + actDegree[i] + "</span></p><p>";
+							for (sun = 0; sun < sunNum[i]; sun++) {
+								li[i] += "<span class=\"sunicon\"></span>";
+							}
+							for (moon = 0; moon < moonNum[i]; moon++) {
+								li[i] += "<span class=\"moonicon\"></span>";
+							}
+							for (star = 0; star < starNum[i]; star++) {
+								li[i] += "<span class=\"staricon\"></span>";
+							}
+							li[i] += "</p><p>";
+							li[i] += "<span class=\"loveicon\">" + praise[i] + "</span>";
+							li[i] += "<span class=\"hateicon\">" + roast[i] + "</span>";
+							li[i] += "<span class=\"commicon\">" + comm[i] + "</span>";
+							li[i] += "<span class=\"shareicon\">" + repost[i] + "</span></p></div></li>";
+							ulinner += li[i];
+						}
+						ulele.innerHTML = ulinner;
+					
+					},
+					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+						mui.toast("网络连接错误");
+						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+						return false;
+					}
+				})
+			})
+		</script>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<header>
+				<div class="side mui-action-back return"><img src=" Myicon/return.png" alt="" class="" /></div><span>推手榜</span></header>
+			<div class="search">
+				<input type="text" name="search" id="search" value="" placeholder="尤金" oninput="showAll()"/>
+				<label for="search" id="searchbtn"><img src="Myicon/hunt icon.png" /></label>
+			</div>
+			<ul class="tuilist" id="tuilist">
+
+			</ul>
+			<ul class="searchshow" id="searchshow">
+			</ul>
+
+		</div>
+	</body>
+	<script type="text/javascript">
+	    var sear = document.getElementById("search");
+		var search = document.getElementById("searchbtn");
+		function showAll () {
+			var ulele = document.getElementById("searchshow");
+							var newli = ulele.getElementsByTagName('li');
+							var newlength = newli.length;
+							for (j=0;j<newlength;j++) {
+								ulele.removeChild(ulele.lastChild);
+							}
+			if (sear.value == "") {
+	    	   	   var jsonobj = {
+					"id": "tuilist"
+				};
+				var str = jsonobj;
+				var url = surl + "user/getUserRank";
+				mui.ajax(url, {
+					data: str,
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						var actDegree = new Array();
+						var comm = new Array();
+						var rank = new Array();
+						var icon = new Array();
+						var id = new Array();
+						var sunNum = new Array();
+						var moonNum = new Array();
+						var starNum = new Array();
+						var praise = new Array();
+						var repost = new Array();
+						var roast = new Array();
+						var username = new Array();
+						var li = new Array();
+						var ulele = document.getElementById("tuilist");
+						var ulinner = "";
+						for (i = 0; i < data.length; i++) {
+							actDegree[i] = data[i].act_degree;
+							comm[i] = data[i].comment;
+							icon[i] = serip + data[i].icon;
+							id[i] = data[i].id;
+							rank[i] = data[i].rank;
+							sunNum[i] = data[i].sunNum;
+							moonNum[i] = data[i].moonNUm;
+							starNum[i] = data[i].starNum;
+							praise[i] = data[i].praise;
+							repost[i] = data[i].repost;
+							roast[i] = data[i].roast;
+							username[i] = data[i].username;
+							li[i] = "";
+							li[i] += "<li><div class=\"leftpart\"><span>" + rank[i] + ".</span>";
+							li[i] += "<img src=\"" + icon[i] + "\"/></div>";
+							li[i] += "<div class=\"midline\"><span></span></div>";
+							li[i] += "<div class=\"rightpart\"><p>";
+							li[i] += "<span class=\"white\">" + username[i] + "</span>";
+							li[i] += "<span class=\"highlight\">活跃值：" + actDegree[i] + "</span></p><p>";
+							for (sun = 0; sun < sunNum[i]; sun++) {
+								li[i] += "<span class=\"sunicon\"></span>";
+							}
+							for (moon = 0; moon < moonNum[i]; moon++) {
+								li[i] += "<span class=\"moonicon\"></span>";
+							}
+							for (star = 0; star < starNum[i]; star++) {
+								li[i] += "<span class=\"staricon\"></span>";
+							}
+							li[i] += "</p><p>";
+							li[i] += "<span class=\"loveicon\">" + praise[i] + "</span>";
+							li[i] += "<span class=\"hateicon\">" + roast[i] + "</span>";
+							li[i] += "<span class=\"commicon\">" + comm[i] + "</span>";
+							li[i] += "<span class=\"shareicon\">" + repost[i] + "</span></p></div></li>";
+							ulinner += li[i];
+						}
+						ulele.innerHTML = ulinner;
+					},
+					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+						mui.toast("网络连接错误");
+						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+						return false;
+					}
+				})
+	    	   }
+		}
+		search.addEventListener('tap', function() {
+			var searchcont = document.getElementById("search").value;
+			if (searchcont == "" || searchcont == null) {
+				mui.toast("请输入搜索内容");
+			} else {
+				var jsonobj = {
+					"searchcont": searchcont
+				};
+				var str = jsonobj;
+				var url = surl + "user/search";
+				mui.ajax(url, {
+					data: str,
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						if (data.state == "1") {
+							var actDegree = new Array();
+							var comm = new Array();
+							var icon = new Array();
+							var id = new Array();
+							var sunNum = new Array();
+							var moonNum = new Array();
+							var starNum = new Array();
+							var praise = new Array();
+							var repost = new Array();
+							var roast = new Array();
+							var username = new Array();
+							var li = new Array();
+							var rank = new Array();
+							var oldul = document.getElementById("tuilist");
+							var oldli = oldul.getElementsByTagName('li');
+							var oldlength = oldli.length;
+							for (j=0;j<oldlength;j++) {
+								oldul.removeChild(oldul.lastChild);
+							}
+							var ulele = document.getElementById("searchshow");
+							var newli = ulele.getElementsByTagName('li');
+							var newlength = newli.length;
+							for (j=0;j<newlength;j++) {
+								ulele.removeChild(ulele.lastChild);
+							}
+							for (i = 0; i < data.list.length; i++) {
+								var newli = document.createElement('li');
+								actDegree[i] = data.list[i].act_degree;
+								comm[i] = data.list[i].comment;
+								rank[i] = data.list[i].rank;
+								icon[i] = serip + data.list[i].icon;
+								id[i] = data.list[i].id;
+								sunNum[i] = data.list[i].sunNum;
+								moonNum[i] = data.list[i].moonNUm;
+								starNum[i] = data.list[i].starNum;
+								praise[i] = data.list[i].praise;
+								repost[i] = data.list[i].repost;
+								roast[i] = data.list[i].roast;
+								username[i] = data.list[i].username;
+								li[i] = "";
+								li[i] += "<div class=\"leftpart\"><span>" + rank[i] + ".</span>";
+								li[i] += "<img src=\"" + icon[i] + "\"/></div>";
+								li[i] += "<div class=\"midline\"><span></span></div>";
+								li[i] += "<div class=\"rightpart\"><p>";
+								li[i] += "<span class=\"white\">" + username[i] + "</span>";
+								li[i] += "<span class=\"highlight\">活跃值：" + actDegree[i] + "</span></p><p>";
+								for (sun = 0; sun < sunNum[i]; sun++) {
+									li[i] += "<span class=\"sunicon\"></span>";
+								}
+								for (moon = 0; moon < moonNum[i]; moon++) {
+									li[i] += "<span class=\"moonicon\"></span>";
+								}
+								for (star = 0; star < starNum[i]; star++) {
+									li[i] += "<span class=\"staricon\"></span>";
+								}
+								li[i] += "</p><p>";
+								li[i] += "<span class=\"loveicon\">" + praise[i] + "</span>";
+								li[i] += "<span class=\"hateicon\">" + roast[i] + "</span>";
+								li[i] += "<span class=\"commicon\">" + comm[i] + "</span>";
+								li[i] += "<span class=\"shareicon\">" + repost[i] + "</span></p></div>";
+								if (rank[i] == 1) {
+									newli.setAttribute('class', 'tuifirst');
+								} else if (rank[i] == 2) {
+									newli.setAttribute('class', 'tuisecond');
+								} else if (rank[i] == 3) {
+									newli.setAttribute('class', 'tuithird');
+								} else {
+									newli.setAttribute('class', 'tuicommon');
+								}
+								newli.innerHTML = li[i];
+								ulele.appendChild(newli);
+							}
+						} else {
+							mui.toast('没有信息');
+						}
+					},
+					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+						mui.toast("网络连接错误");
+						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+						return false;
+					}
+				})
+			}
+		})
+	</script>
+
+</html>

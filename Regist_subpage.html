@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<meta charset="utf-8">
+		<title>注册</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+	</head>
+
+	<body>
+		<div class="mui-content" style="margin-bottom: 60px;">
+			<div id="user_face">
+				<img src="Myicon/logo.png" />
+			</div>
+			<form action="" method="post">
+				<input onblur="checkphone()" type="tel" class="mui-input-clear" name="" id="phone" value="" placeholder="请输入手机号码" />
+				<input type="number" class="mui-input-clear" name="" id="verify" value="" placeholder="请输入验证码" />
+				<input type="button" name="" id="send" value="发送验证码" />
+				<input type="text" class="mui-input-clear" name="" id="nickname" value="" placeholder="设置昵称" />
+				<input type="text" name="sex" id="sex" value=""placeholder="输入性别男或女" />
+				<input onblur="checkPwd()" type="password" class="mui-input-clear" name="" id="pwd1" value="" placeholder="设置密码" />
+				<input onblur="checksame()" type="password" class="mui-input-clear" name="" id="pwd2" value="" placeholder="确认密码" />
+				<input type="button" name="" id="regist" value="注册" />
+
+			</form>
+		</div>
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var send = document.getElementById("send");
+			var register = document.getElementById("regist");
+			var verify = document.getElementById("verify");
+			var nickname = document.getElementById("nickname");
+			var phone = document.getElementById("phone");
+			var password1 = document.getElementById("pwd1");
+			var password2 = document.getElementById("pwd2");
+            var sex = document.getElementById("sex");
+			function checkphone() {
+				var regPhone = /^[1][0-9][0-9]{9}$/;
+				falg = phone.value.search(regPhone);
+				if (falg == -1) {
+					phone.value = "";
+					phone.placeholder = "手机号不合法";
+				} else {}
+
+				function checkPwd() {
+					var password = document.getElementById("pwd1");
+					var regPwd = /^[0-9A-Za-z]{6,}$/;
+					falg = password.value.search(regPwd);
+					if (falg == -1) {
+						password.value = "";
+						pwd1.placeholder = "至少6位，且由数字和字符组成";
+					}
+				}
+
+				function checksame() {
+					if (password1.value !== password2.value) {
+						//					password2.value = "";
+						password2.placeholder = "请输入相同密码";
+					
+					}
+				}
+				send.addEventListener('tap', function() {
+					
+					mui.toast("获取短信中，请稍候...");
+					var jsonObj = {
+						'phone': phone.value
+					};
+					var str = jsonObj;
+					var url = surl + "user/sendYZM";
+					mui.ajax(url, {
+						data: str,
+						dataType: "json",
+						type: "post",
+						timeout: 10000,
+						success: function(data) {
+							if (data.state == "1") {
+								mui.toast("短信已发送,请注意查收");
+								window.number = data.yzm;
+							}
+						}
+					});
+					send.disabled = true;
+				})
+				register.addEventListener('tap', function() {
+						
+						if (number !== verify.value) {
+							mui.toast('验证码错误');
+							verify.value = "";
+						} else if (phone.value == "" || phone.value == null) {
+							mui.toast('手机号不能为空');
+						} else if (verify.value == "" || verify.value == null) {
+							mui.toast('验证码不能为空');
+						} else if (sex.value == "" || nickname.value == null) {
+							mui.toast('性别不能为空');
+						}else if (nickname.value == "" || nickname.value == null) {
+							mui.toast('昵称不能为空');
+						} else if (password1.value == "" || password1.value == null) {
+							mui.toast('密码不能为空');
+						} else if (password2.value == "" || password2.value == null) {
+							mui.toast('请重复输入密码');
+						} else {
+							var jsonObj = {
+								'phone': phone.value,
+								'yzm': verify.value,
+								'username': nickname.value,
+								'sex':sex.value,
+								'password': password1.value
+							};
+							var str = jsonObj;
+							var url = surl + "user/register";
+							mui.ajax(url, {
+								data: str,
+								dataType: "json",
+								type: "post",
+								timeout: 10000,
+								success: function(data) {
+									if (data.state == "1") {
+										localStorage.tempuser = phone.value;
+									localStorage.savepassword = password1.value;
+										mui.openWindow({
+											url: 'Login.html',
+											id: 'Login.html'
+										})
+									
+									
+									}
+									else if (data.state == "0") {
+										mui.toast("注册失败");
+									}
+								}
+							});
+						}
+					}
+				)}
+			
+		</script>
+	</body>
+
+</html>

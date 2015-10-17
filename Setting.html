@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>设置</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+	</head>
+
+	<body style="margin-bottom: 30px;">
+		<header>
+			<div class="mui-action-back return"><img src="Myicon/return.png" /></div>
+			<span id="title">
+				设置
+			</span>
+			<a  href="#" class=" mui-pull-right" style="color: #fff;margin-right: 4%;box-sizing: border-box;">保存</a>
+		</header>
+		
+		
+		<ul class="set">
+			<li class="thin1" id='get'><span id="" style="margin-left: 6%;"> 
+	 		我的头像
+	 	</span>
+				<img src="Myicon/1.png"  class="sethead" id="photo"/>
+				<img src="Myicon/more.png" class="more" />
+
+			</li>
+			<li class="thin2">
+				<span class="left">性别</span>
+				<span id="setsex">
+	 			
+	 		</span>
+
+			</li>
+			<li class="big1">
+				<span class="left">
+	 		昵称
+	 	</span>
+				<span id="setnickname">
+	 			
+	 		</span>
+			</li>
+			<li class="big2" id="big2"> <span class="left">修改密码</span><a href="ChangePassword.html"><img src="Myicon/more.png"  class="more1"/></a></li>
+			<li class="big" id="big"><span class="left">关于我们</span><a href="AboutUs.html"><img src="Myicon/more.png" class="more1"/></a></li>
+		</ul>
+
+		<div class="cancel">
+			<input type="button" id="logout" value="注销登录" />
+		</div>
+	</body>
+	
+     <script type="text/javascript">
+     var imgurl;
+     	     var sex1 = '';
+     var urls = surl + "user/mySet";
+     	var jsonobj = {
+		'loginId':localStorage.loginId
+     	};
+     	mui.ajax(urls, {
+		data: jsonobj,
+		dataType: 'json',
+		type: 'post',
+		timeout: 10000,
+		success: function(data) {
+			if(data.user.sex ==1)
+			 sex1="男";
+			else{
+				sex1="女";
+			}
+			document.getElementById("setsex").innerHTML = sex1;
+			document.getElementById("setnickname").innerHTML = data.user.username;
+		}
+     	})
+     	   var logout = document.getElementById("logout");
+     	   logout.addEventListener('tap',function(){
+     	   	localStorage.tempuser = null;
+     	   	localStorage.savepassword = null;
+     	   	mui.openWindow({
+     	   		url:'Login.html',
+     	   		id:'Login.html'
+     	   	})
+     	   	
+     	   })
+     	   
+     	   var seticon = document.getElementById("icon");
+     	    var big = document.getElementById("big");
+     	    var big2 = document.getElementById("big2");
+     	    big.addEventListener('tap',function(){
+     	    	mui.openWindow({
+     	    		url:"AboutUs.html",
+     	    		id:"AboutUs.html"
+     	    	})
+     	    })
+     	  
+     	    big2.addEventListener('tap',function(){
+     	    	mui.openWindow({
+     	    		url:'ChangePassword.html',
+     	    		id:'ChangePassword.html'
+     	    	})
+     	    	
+     	    })
+     	    	
+     	    function getImage() {
+					var cmr = plus.camera.getCamera();
+					cmr.captureImage(function(p) {
+						plus.io.resolveLocalFileSystemURL(p, function(entry) {
+							var localurl = entry.toLocalURL(); //
+							document.getElementById("photo").src = localurl;
+						    appendFile(localurl);
+						});
+					});
+				}
+				//相册选取
+                                
+			function galleryImgs() {
+				plus.gallery.pick(function(e) {
+					document.getElementById("photo").src = e.files[0];
+				 
+					imgurl=e.files[0];
+					
+				}, function(e) {
+					//outSet( "取消选择图片" );
+				}, {
+					filter: "image",
+					multiple: true
+				});
+				
+				
+			}
+     	    	
+     	    document.getElementById("get").addEventListener('tap', function() {
+			var btnArray = [{
+				title: "使用手机拍照"
+			}, {
+				title: "从相册中选择"
+			}];
+			
+			plus.nativeUI.actionSheet({
+				title: "添加图片",
+				cancel: "取消",
+				buttons: btnArray
+			}, function(e) {
+				var index = e.index;
+				switch (index) {
+					case 0:
+						break;
+					case 1:
+						getImage();
+						break;
+					case 2:
+					    //getImage();
+						galleryImgs();
+						break;
+				}
+				
+			});
+		});
+     	   
+     	  
+     	   var f1 = null;
+			function appendFile(path) {
+	
+				var img = new Image();
+				img.src = path;
+				img.onload = function() {
+					
+					var that = this;
+					//生成比例 
+					var w = that.width,
+						h = that.height,
+						scale = w / h;
+					w = 480 || w;
+					h = w / scale;
+					//生成canvas
+					var canvas = document.createElement('canvas');
+					var ctx = canvas.getContext('2d');
+					$(canvas).attr({
+						width: w,
+						height: h
+					});
+				
+					ctx.drawImage(that, 0, 0, w, h);
+				var base64 = canvas.toDataURL('image/jpeg', 0.6 || 0.6); //1最清晰，越低越模糊。
+					f1 = base64;
+					f1 = f1.replace(/data:image\/jpeg;base64,/, "");
+					
+					
+					newupload();					
+				}
+			}
+
+			function newupload() {
+			
+				var jsonobj = {
+					'data': f1,
+					'type': 'avtive'
+				};
+				var str = jsonobj;
+				
+				var url = surl + "project/getPic";
+				mui.ajax(url, {
+					data: str,
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						if (data.retCode == '1') {
+							mui.toast('成功');
+							photosrc.push([data.path]);
+						} else if (data.retCode == '0') {
+							mui.toast('失败');
+						}
+					},
+					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+						mui.toast("网络连接错误");
+						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+						return false;
+					}
+				})
+			}
+     	    
+
+
+     	   
+     
+     </script>
+</html>

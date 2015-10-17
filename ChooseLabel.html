@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>标签选择</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css">
+			.addedLabel {
+				display: inline-block;
+				border: 1px solid #4EB5D7;
+				padding: 3px 5px;
+				margin: 5px;
+			}
+			.labelred {
+				display: inline-block;
+			}
+			.labels1 {
+				text-align: left;
+			}
+		</style>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+
+	</head>
+
+	<body style="background: #353432;">
+		<header>
+			<div class="mui-action-back return"><img src="Myicon/return.png" /></div>
+			<span id="title">
+				一块推
+			</span>
+		</header>
+		<div class="mui-content labels">
+			<div class="labels1" id='labels1'>
+			</div>
+			<div class="labelslist">
+				<ul class="labelred" style="padding: 0;margin-left: -2%;">
+					<li id='label1'>音乐</li>
+					<li id='label2'>搞笑</li>
+					<li id='label3'>男神</li>
+					<li id='label4'>情感</li>
+				</ul>
+				<ul class="labelblue" style="padding: 0;margin-left: -2%;">
+					<li id='label5'>饮食</li>
+					<li id='label6'>创意</li>
+					<li id='label7'>运动</li>
+				</ul>
+				<ul class="labelgreen" style="padding: 0;margin-left: -2%;">
+					<li id='label8'>故事</li>
+					<li id='label9'>互动</li>
+					<li id='label10'>户外</li>
+				</ul>
+			</div>
+			<div class="labelsure" id="labelsure">
+				<input type="submit" name="" id="" value="确定" />
+			</div>
+
+			<div class="tipses">
+
+				<div class="tips1">给您的作品贴上标签</div>
+				<div class="tips2">我们将定期为您推荐您感兴趣的内容</div>
+			</div>
+
+		</div>
+		<script type="text/javascript">
+			Array.prototype.remove = function(obj) {
+				for (var i = 0; i < this.length; i++) {
+					var temp = this[i];
+					if (!isNaN(obj)) {
+						temp = i;
+					}
+					if (temp == obj) {
+						for (var j = i; j < this.length; j++) {
+							this[j] = this[j + 1];
+						}
+						this.length = this.length - 1;
+					}
+				}
+			}
+			var num = new Array();
+			var i = 0;
+			var numcontent;
+			var labels1 = document.getElementById("labels1");
+			mui('.labelslist').on('tap', 'li', function() {
+				var newcontent = this.innerText;
+				numcontent = num.join();
+				if (numcontent.indexOf(newcontent) > -1) {} else {
+					num[i] = this.innerText;
+					i++;
+					var that = this;
+					this.style.backgroundColor = "#4EB5D7";
+					var newspan = document.createElement('span');
+					newspan.setAttribute('class', 'addedLabel');
+					newspan.innerText = this.innerText;
+					labels1.appendChild(newspan);
+					newspan.addEventListener('tap', function() {
+						var thiscontent = this.innerText;
+						
+						
+						for (j = 0; j < num.length; j++) {
+							if (num[j] == thiscontent) {
+								num.remove(j);
+							} else {}
+						}
+						this.remove();
+						that.style.backgroundColor = "";
+					})
+				}
+			})
+			
+			var labelsure = document.getElementById("labelsure");
+		labelsure.addEventListener('tap',function(){
+			localStorage.chooselabel = num;
+			mui.openWindow({
+				url:"Tuituitui.html",
+				id:'Tuituitui.html'
+				
+				
+			})
+			
+			
+		})
+			
+			
+			
+		</script>
+	</body>
+
+</html>

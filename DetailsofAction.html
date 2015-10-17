@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>活动详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+		</script>
+
+	</head>
+
+	<body>
+		<header>
+			<div class="mui-action-back return"><img src="Myicon/return.png" /></div>
+			<span id="title">
+				活动详情
+			</span>
+		</header>
+
+		
+		<script type="text/javascript">
+			 //		 //mui初始化
+			mui.init({
+				subpages: [{
+					url: 'DetailsofAction_subpage.html',
+					id: 'DetailsofAction_subpage.html',
+					styles: {
+						top: '48px', //mui标题栏默认高度为45px；
+						bottom: '0px'//默认为0px，可不定义；
+//						bounce:"vertical"
+					}
+				}]
+			});
+		  
+		
+		
+		
+		</script>
+	</body>
+
+</html>

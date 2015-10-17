@@ -1,0 +1,248 @@
+* {
+	margin: 0;
+	padding: 0;
+	background-color: #efeff4;
+	font-family: "微软雅黑";
+}
+header {
+	height: 44px;
+	line-height: 44px;
+	color: #fff;
+	background-color: #44BDED;
+	text-align: center;
+}
+header #top-right,
+#top-left {
+	background-color: #44BDED;
+}
+h1 {
+	background-color: #44BDED;
+}
+.mui-title {
+	color: #fff;
+	font-size: 20px;
+	z-index: 10;
+}
+.mui-pull-right {
+	height: 44px;
+	line-height: 44px;
+	position: absolute;
+	right: 0;
+	width: 20%;
+	text-align: right;
+	padding-right: 5px;
+}
+a {
+	color: #fff;
+	/*background-color: #44BDED;*/
+}
+header #title {
+	background-color: #44BDED;
+	font-size: 20px;
+}
+#next {
+	float: right;
+	margin-right: 5%;
+	margin-top: -35px;
+	font-size: 15px;
+	color: #fff;
+	background-color: #44BDED;
+}
+#back {
+	width: 50px;
+	float: left;
+	margin-left: 5%;
+	margin-top: -35px;
+	font-size: 15px;
+	color: #fff;
+	background-color: #44BDED;
+}
+.container form {
+	margin-top: 100px;
+}
+.container form input {
+	text-align: center;
+	font-family: simhei;
+	margin-bottom: -1px;
+}
+input[type=submit] {
+	border: #60CF5F;
+	background-color: #60CF5F;
+}
+.submit {
+	margin-top: 20px;
+	width: 90%;
+	margin-left: 5%;
+	text-align: center;
+	height: 35px;
+	line-height: 35px;
+	color: #fff;
+	border-radius: 5px;
+}
+footer {
+	margin-top: 20px;
+	color: #9c9c9c;
+}
+#register {
+	margin-left: 30%;
+}
+#forget {
+	float: right;
+	margin-right: 20%;
+}
+a:link,
+:visited {
+	color: #9c9c9c;
+}
+.mui-input-row,
+label {
+	background-color: #fff;
+}
+.sendmessage {
+	width: 100px;
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	position: absolute;
+	margin: 5px 35%;
+	color: #fff;
+	border-radius: 5px;
+	background-color: #60CF5F;
+}
+.mui-table-view-cell .headimg img {
+	width: 20%;
+	border-radius: 5px;
+	float: left;
+	margin-right: 20px;
+}
+.username {
+	font-size: 20px;
+	margin-bottom: 3px;
+	background-color: #fff;
+}
+.userdetail {
+	margin-bottom: 3px;
+	background-color: #fff;
+}
+.userbrief {
+	font-size: 13px;
+	color: #9C9C9C;
+	background-color: #fff;
+}
+.mui-content span {
+	font-size: 15px;
+	margin-right: 20px;
+	padding: 0 10px;
+	color: #fff;
+	border-radius: 3px;
+}
+#sex-age {
+	background-color: #44BDED;
+}
+#tennis-age {
+	background-color: goldenrod;
+}
+#level {
+	background-color: #4CD964;
+}
+.mui-input-row {
+	line-height: 40px;
+}
+.mui-input-row label {
+	text-indent: 1em;
+}
+.mui-form-row {
+	width: 100%;
+	height: 45px;
+	line-height: 44px;
+	padding-left: 15px;
+	border-bottom: 1px solid #FFFFFF;
+}
+.sex,
+.birthday,
+.tennisAge,
+.level,
+.issecret {
+	display: inline-block;
+	background-color: #EFEFF4;
+	width: 30%;
+	text-indent: 1em;
+}
+.mui-form-row .mui-btn {
+	width: 80px;
+	font-size: 13px;
+	margin-top: 6px;
+}
+#sex-woman,
+#isSecret {
+	margin-left: -5px;
+	border-radius: 0 5px 5px 0;
+}
+#sex-man,
+#isPublic {
+	background-color: #1DAC34;
+	border-color: #1DAC34;
+	color: #FFFFFF;
+	border-radius: 5px 0 0 5px;
+}
+.mui-tennisAge {
+	height: 40px;
+}
+#pickTennisAge select {
+	width: 65%;
+	background-color: #EFEFF4;
+	font-family: "微软雅黑";
+}
+#picklevel select {
+	width: 65%;
+	background-color: #EFEFF4;
+	font-family: "微软雅黑";
+}
+.userInfo {
+	background-color: #fff;
+}
+.userInfo .datetime,
+span {
+	background-color: #fff;
+}
+.userInfo .datetime span {
+	color: #9C9C9C;
+	padding: 0;
+}
+.mui-tab-item img {
+	width: 15px;
+}
+.mui-bar-tab{
+	background-color: #44BDED;
+}
+.mui-bar-tab span{
+	color: #fff;
+}
+.mui-bar-nav #sift{
+	height: 90px;
+	background-color:#44BDED ;
+	padding-top: 45px;
+}
+.sift-content{
+	width: 94%;
+	margin:0 3% ;
+	background-color: #0072A7;
+}
+.sift-content span{
+	float: left;
+	display: inline-block;
+	width: 50%;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+	color: #fff;
+}
+#nearby{
+	border-radius:5px 0 0 5px;
+	border: 1.5px solid #0072A7;
+}
+#time{
+	border-radius: 0 5px 5px 0;
+	border: 1.5px solid #0072A7;
+	background-color:#44BDED ;
+}

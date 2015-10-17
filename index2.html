@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css"/>
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<title></title>
+		<style type="text/css">
+			body {
+				background-color: #363533;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="audioContent">
+				<div class="showAudio">
+					<ul id="audio_content">
+
+					</ul>
+				</div>
+				<div class="getAudio">
+					<button id="getAudio" class="mui-btn"><img src="img/mic.png" id="getState" />点击录音</button>
+					<button id="uploadAudio">上传语音</button>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		 // 扩展API加载完毕后调用onPlusReady回调函数 
+		document.addEventListener("plusready", onPlusReady, false);
+		var r = null;
+		var i = 0;
+		var j = new Array();
+		var newli = new Array();
+		var uploadnum;
+		var localurl = '/Users/Yasin/Library/Developer/CoreSimulator/Devices/DE29A1EC-3F1B-4A0C-AEF4-7182066708C9/data/Containers/Data/Application/FF6249DA-C1AA-4788-BDAE-85206E0D6B8D/Library/Pandora/apps/HBuilder/www/';
+		var getAudio = document.getElementById("getAudio");
+		var getState = document.getElementById("getState");
+		var ulcontent = document.getElementById("audio_content");
+		getAudio.addEventListener('tap', function() {
+				if (i % 2 == 0) {
+					i++;
+					var num = (i + 1) / 2;
+					uploadnum = num;
+					startRecord(num);
+					getAudio.innerText = "录音中";
+					getState.src = "img/1.gif";
+				} else {
+					i++;
+					var num = i / 2;
+					uploadnum = num;
+					j[num] = 0;
+					stopRecord(num);
+					getAudio.innerText = "录音结束";
+					getState.src = "img/mic.png";
+					newli[num] = document.createElement('li');
+					var length = getlength(num);
+					var newlen = length.toFixed(1);
+					newli[num].setAttribute('class', 'audioList readyPlay');
+					newli[num].innerHTML = "<img src=\"img/播放.png\" /><span class=\"tips\">点击播放</span><span class=\"audioLength\">" + newlen + "\'</span>";
+					if (num == 1) {
+						ulcontent.appendChild(newli[num]);
+					} else if (num > 1) {
+						var old = ulcontent.getElementsByTagName('li')[0];
+						ulcontent.replaceChild(newli[num], old);
+					}
+					console.log(ulcontent.innerHTML);
+					newli[num].addEventListener('tap', function() {
+						var old = ulcontent.getElementsByTagName('li')[0];
+						var firstimg = old.getElementsByTagName('img');
+						var span = old.getElementsByTagName('span');
+						j[num] ++;
+						console.log(j[num]);
+						if (j[num] % 2 != 0) {
+							resumePlay(num);
+							old.style.backgroundColor = "#6d6c6c";
+							old.style.color = "#4ab5d7";
+							firstimg[0].src = "img/停止.png";
+							console.log("播放");
+							span[0].innerText = "点击停止";
+							span[1].innerHTML = "<img src=\"img/语音播放中.png\"/>";
+						} else {
+							pausePlay();
+							console.log("暂停");
+							old.style.backgroundColor = "#4ab5d7";
+							old.style.color = "#FFF";
+							firstimg[0].src = "img/播放.png";
+							span[0].innerText = "点击播放";
+							span[1].innerHTML = newlen + "\'";
+						}
+					})
+				}
+			})
+			// 扩展API加载完毕，现在可以正常调用扩展API 
+
+		function onPlusReady() {
+			r = plus.audio.getRecorder();
+		}
+
+		function startRecord(num) {
+			var filename = "_doc/audio/test" + num;
+			console.log("filename" + filename);
+			if (r == null) {
+				alert("Device not ready!");
+				return;
+			}
+			r.record({
+				filename: filename
+			}, function() {
+				console.log("Audio record success!");
+			}, function(e) {
+				alert("Audio record failed: " + e.message);
+			});
+		}
+
+		function stopRecord(num) {
+			var filename = "_doc/audio/test" + num;
+			p = plus.audio.createPlayer(filename);
+			r.stop();
+		}
+		var p = null;
+
+		function startPlay(num) {
+			if (plus.audio == undefined) {
+				alert("Device not ready!");
+			}
+			var filename = "_doc/audio/test" + num;
+			p = plus.audio.createPlayer(filename);
+			p.play(function() {
+				console.log("Audio play success!");
+			}, function(e) {
+				alert("Audio play error: " + e.message);
+			});
+		}
+
+		function stopPlay() {
+			//				var filename = "_doc/audio/test"+num;
+			//				p = plus.audio.createPlayer(filename);
+			p.stop();
+		}
+
+		function pausePlay() {
+			p.pause();
+		}
+
+		function resumePlay(num) {
+			var filename = "_doc/audio/test" + num;
+			p = plus.audio.createPlayer(filename);
+			p.resume();
+		}
+
+		function getlength(num) {
+				var filename = "_doc/audio/test" + num;
+				p = plus.audio.createPlayer(filename);
+				var duration = p.getDuration();
+				return duration;
+			}
+			// 监听上传任务状态
+
+		function onStateChanged(upload, status) {
+				if (upload.state == 4 && status == 200) {
+					// 上传完成
+					alert("Upload success: " + upload.getFileName());
+				}
+			}
+			// 创建上传任务
+        var upload = document.getElementById("uploadAudio");
+        upload.addEventListener('tap',function() {
+        	       createUpload(uploadnum);
+        })
+		function createUpload(num) {
+			    var filename = "_doc/audio/test" + num;
+				var task = plus.uploader.createUpload("http://lmf0724.oicp.net/yikuaitui/project/getPic");
+				task.addFile(filename, {
+					key: "testdoc"
+				});
+				task.addData("string_key", "string_value");
+				task.addEventListener("statechanged", onStateChanged, false);
+				task.start();
+			}
+			// 暂停上传任务
+
+		function pauseUpload() {
+				task.pause();
+			}
+			// 取消上传任务
+
+		function abortUpload() {
+			task.pause();
+		}
+	</script>
+
+</html>

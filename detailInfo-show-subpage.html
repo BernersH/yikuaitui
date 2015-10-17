@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" charset="utf-8">
+		<title>详细资料子页面</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="no">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+				mui.plusReady(function() {
+					var pageid = plus.webview.currentWebview().id;
+					var jsonobj = {
+						'id': pageid,
+						'eventUserId': id
+					};
+					var str = jsonobj;
+					var url = surl + "friends/friendDetails";
+					mui.ajax(url, {
+						data: str,
+						dataType: 'json',
+						type: 'post',
+						timeout: 10000,
+						success: function(data) {
+								var nickname = data.nick_name;
+								var icon = data.icon;
+								var joinNum = data.joinNum;
+								var buildNum = data.buildNum;
+								var wechat = data.wei_chat;
+								var level = data.level;
+								var tel = data.phone;
+								var intro = data.introduce;
+								var tennis_age = data.tennis_age;
+								var tennisAge = tennisAgeChange(tennis_age);
+								var newlevel = levelChange(level);
+								var sex = data.sex;
+								var isSecret = data.is_secret;
+								var isAtt = data.isAtt;
+								if (sex == "男") {
+									document.getElementById("sex").src = "img/boy.png";
+								} else {
+									document.getElementById("sex").src = "img/girl.png";
+								}
+								if (isSecret == "保密") {
+									document.getElementById("tel").value = "保密";
+								} else{
+									document.getElementById("tel").value = tel;
+								}
+								if (isAtt == 1) {
+									document.getElementById('follow').innerText = "已关注";
+								} else{
+									document.getElementById("follow").innerText = "+关注";
+								}
+								document.getElementById("nickName").innerText = nickname;
+								document.getElementById("userIcon").src = icon;
+								document.getElementById("tennisAge").value = tennisAge;
+								document.getElementById("newlevel").value = newlevel;
+
+								document.getElementById("buildNum").innerText = buildNum;
+								document.getElementById("joinNum").innerText = joinNum;
+								document.getElementById("wechat").value = wechat;
+								document.getElementById("textarea").value = intro;
+						},
+						error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+							mui.toast("网络连接错误");
+							console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+							console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+							return false;
+						}
+					})
+				
+				})
+		</script>
+	</head>
+	<style type="text/css">
+		.mui-input-row label {
+			height: 40px;
+		}
+		.mui-input-row img{
+			float: right;
+			margin-top: -30px;
+			margin-right: 5%;
+			width: 20px;
+		}
+		#name {
+			background-color: #fff;
+		}
+		.mui-content {
+			margin-top: -80px;
+		}
+		.headimg {
+			width: 20%;
+			margin: 100px 40% 20px;
+		}
+		.headimg img {
+			width: 100%;
+			border-radius: 100%;
+		}
+		.mui-popover {
+				height: 300px;
+		}
+		.mui-content {
+				padding: 10px;
+		}
+		#sex-man,
+		#isPublic{
+			border-radius: 5px;
+		}
+
+	</style>
+
+	<body>
+		<div class="mui-content">
+			<div class="headimg">
+				<img src="img/head2.jpg" />
+			</div>
+			<div class="mui-input-row">
+				<label>昵称</label>
+				<input id="nickname" name="nickname" type="text" value="" readonly="readonly">
+			</div>
+			<div class="mui-input-row">
+				<label>微信号</label>
+				<input id="wechat" name="wechat" type="text" value="" readonly="readonly">
+			</div>
+			<div class="mui-input-row">
+				<label class="birthday">生日</label>
+				<div id="">
+					
+				</div>
+			</div>
+			<div class="mui-input-row">
+				<label class="tennisAge">球龄</label>
+				<div id="">
+					
+				</div>
+			</div>
+			
+			<div class="mui-input-row">
+				<label class="level">水平</label>
+				<div id="">
+					
+				</div>
+			</div>
+			
+			<div class="mui-form-row">
+				<label class="sex">性别</label>
+				<button id="sex-man" class="mui-btn">男</button>
+				<!--<button id="sex-woman" class="mui-btn">女</button>-->
+			</div>
+			<div class="mui-form-row">
+				<label class="issecret">手机号</label>
+				<button id="isPublic" class="mui-btn">公开</button>
+				<!--<button id="isSecret" class="mui-btn">保密</button>-->
+			</div>
+			<div class="mui-input-row" style="margin: 10px 5px;">
+				<textarea id="textarea" rows="3" value="" readonly="readonly">hello</textarea>
+			</div>
+		</div>
+	</body>
+	<script src="js/mui.min.js"></script>
+	<script type="text/javascript">
+		window.addEventListener('newsId',function(event){
+ //获得事件参数
+        var id = event.detail.id;
+		if(id === 1){
+			var nickname = document.getElementById("nickname").value;
+			var weichat = document.getElementById("wechat").value;
+			var birth = document.getElementById("pickDateBtn").innerText;
+			var tennisAge = document.getElementById("pickTennisAge").innerText;
+			var level = document.getElementById("picklevel").innerText;
+			var introduce = document.getElementById("textarea").value;
+			var jsonobj = {
+				"nickname": nickname,
+				"weichat": weichat,
+				"birth": birth,
+				"tennisAge": tennisAge,
+				"level": level,
+				"introduce": introduce,
+				"sex": sex,
+				"is_secret": is_secret
+			};
+			var str = jsonobj;
+			var url = surl + "user/modifyInfo";
+			mui.ajax(url, {
+				data: str,
+				dataType: 'json',
+				type: 'post',
+				timeout: 10000,
+				success: function(data) {
+					mui.openWindow({
+						url: "tab-webview-main.html",
+						id: "tab-webview-main",
+						crateNew: false, //是否重复创建同样id的webview，默认为false:不重复创建，直接显示
+						show: {
+							autoShow: true, //页面loaded事件发生后自动显示，默认为true
+							aniShow: "slide-in-right", //页面显示动画，默认为”slide-in-right“；
+							duration: "200" //页面动画持续时间，Android平台默认100毫秒，iOS平台默认200毫秒；
+						},
+						waiting:{
+						autoShow:false
+					}
+					})
+               
+//					if (data.state == "0") {
+//						return false;
+//					} else {
+
+//						localStorage.tempClass = data.classId;
+//						localStorage.tempGrade = data.grade;
+//						loginok();
+				},
+				error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+					mui.toast("网络连接错误");
+					console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+					console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+					return false;
+				}
+			});
+		}
+		
+		});
+	</script>
+
+</html>

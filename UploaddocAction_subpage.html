@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>上传活动文件</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ajax.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/toggleClass.js" type="text/javascript" charset="utf-8"></script>
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<style>
+			.mui-card .mui-control-content {
+				padding: 10px;
+			}
+		</style>
+	</head>
+
+	<body >
+
+		<div class="mui-content">
+			<div>
+				<div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active red" href="#item1" style="border-right: 1px solid white ;">
+				图片
+			</a>
+					<!--<a class="mui-control-item blue" href="#item2" style="border-right: 1px solid white;">
+				语音
+			</a>-->
+					<a class="mui-control-item green" href="#item3">
+				视频连接
+			</a>
+				</div>
+			</div>
+			<div>
+				<div id="item1" class="mui-control-content mui-active">
+
+					<div class="mui-scroll">
+						<div class="things" id="headimg">
+							<div id="get1" class="addphoto1 " onclick="addphoto(1)">
+								<img id="photo1" src="Myicon/add icon.png" />
+							</div>
+							<div id="get2" class="addphoto transparent" onclick="addphoto(2)">
+								<img id="photo2" src="Myicon/add icon.png" />
+							</div>
+							<div id="get3" class="addphoto transparent" onclick="addphoto(3)">
+								<img id="photo3" src="Myicon/add icon.png" />
+							</div>
+							<div id="get4" class="addphoto transparent" onclick="addphoto(4)">
+								<img id="photo4" src="Myicon/add icon.png" />
+							</div>
+							<div id="get5" class="addphoto transparent" onclick="addphoto(5)">
+								<img id="photo5" src="Myicon/add icon.png" />
+							</div>
+							<div id="get6" class="addphoto transparent" onclick="addphoto(6)">
+								<img id="photo6" src="Myicon/add icon.png" />
+							</div>
+							<div id="get7" class="addphoto transparent" onclick="addphoto(7)">
+								<img id="photo7" src="Myicon/add icon.png" />
+							</div>
+							<div id="get8" class="addphoto transparent" onclick="addphoto(8)">
+								<img id="photo8" src="Myicon/add icon.png" />
+							</div>
+							<div id="get9" class="addphoto transparent" onclick="addphoto(9)">
+								<img id="photo9" src="Myicon/add icon.png" />
+							</div>
+
+						</div>
+
+						
+							<div class="sure" id="tosure">
+								<input type="button" name="" id="picsure" value="确定" />
+
+							</div>
+						
+
+					</div>
+				</div>
+
+				<div id="item2" class="mui-control-content">
+					<div class="voice">
+						<div class="trylisten">
+							<img src="UI/yqt/icon/播放.png" />点击试听
+							<span id="timeofvoice">
+							15'
+						</span>
+						</div>
+						<div class="pause">
+							<img src="UI/yqt/icon/暂停.png" />点击暂停
+							<img src="UI/yqt/icon/语音播放中.png" class="playing" />
+						</div>
+
+						<div class="speak">
+							<img src=" UI/yqt/icon/麦克风（白）.png" /> 按住说话
+
+						</div>
+					</div>
+					
+						<div class="sure">
+							<input type="button" name="" id="" value="确定" style="background: #4EB5D7;" />
+
+						</div>
+					
+				</div>
+				<div id="item3" class="mui-control-content">
+					<div class="video">
+						<textarea name="" rows="" cols="" placeholder="请输入视频连接..."></textarea>
+					</div>
+					
+						<div class="sure">
+							<input type="button" name="" id="" value="确定" style="background: #9AD0AE;" />
+
+						</div>
+					
+				</div>
+			</div>
+
+		</div>
+		<script>
+			var photoarray = new Array();
+			var imgdiv = new Array();
+			var headimg = document.getElementById("headimg");
+			var imgdiv = headimg.getElementsByTagName('div');
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			(function($) {
+				$('#scroll').scroll({
+					indicators: true //是否显示滚动条
+				});
+				var segmentedControl = document.getElementById('segmentedControl');
+				$('.mui-input-group').on('change', 'input', function() {
+					if (this.checked) {
+						var styleEl = document.querySelector('input[name="style"]:checked');
+						var colorEl = document.querySelector('input[name="color"]:checked');
+						if (styleEl && colorEl) {
+							var style = styleEl.value;
+							var color = colorEl.value;
+							//								segmentedControl.className = 'mui-segmented-control' + (style ? (' mui-segmented-control-' + style) : '') + ' mui-segmented-control-' + color;
+						}
+					}
+				});
+			})(mui);
+			 //上传图片
+			mui('body').on('shown', '.mui-popover', function(e) {});
+			mui('body').on('hidden', '.mui-popover', function(e) {});
+
+			function addphoto(photoid) {
+			
+				if (hasClass(imgdiv[photoid - 1], 'transparent')) {} else {
+					var btnArray = [{
+						title: "使用手机拍照"
+					}, {
+						title: "从相册中选择"
+					}];
+					plus.nativeUI.actionSheet({
+						title: "添加图片",
+						cancel: "取消",
+						buttons: btnArray
+					}, function(e) {
+						var index = e.index;
+						switch (index) {
+							case 0:
+								break;
+							case 1:
+								getImage(photoid);
+								break;
+							case 2:
+								galleryImgs(photoid);
+								break;
+						}
+					});
+				}
+			}
+			var ifphoto = {
+				"ifid": [{
+					"id": 0
+				}, {
+					"id": 0
+				}, {
+					"id": 0
+				}, {
+					"id": 0
+				}, {
+					"id": 0
+				}, {
+					"id": 0
+				}, {
+					"id": 0
+				}, {
+					"id": 0
+				}, {
+					"id": 0
+				}]
+			}
+			var imgflag=0;
+
+			function getImage(photoid) {
+				imgflag=1;
+	
+			
+					var cmr = plus.camera.getCamera();
+					cmr.captureImage(function(p) {
+						plus.io.resolveLocalFileSystemURL(p, function(entry) {
+							var localurl = entry.toLocalURL();
+							var phototempid = 'photo' + photoid;
+							document.getElementById(phototempid).src = localurl;
+							appendFile(localurl, photoid);
+							$(imgdiv[photoid]).removeClass('transparent');
+						});
+					});
+				}
+				//相册选取
+				
+
+			function galleryImgs(photoid) {
+				imgflag=0;
+			
+				plus.gallery.pick(function(e) {
+					var phototempid = 'photo' + photoid;
+					document.getElementById(phototempid).src = e.files;
+					appendFile(e, photoid);
+					$(imgdiv[photoid]).removeClass('transparent');
+				});
+			}
+			var f1 = null;
+
+			function appendFile(path, photoid) {
+				var img = new Image();
+				img.src = path;
+				img.onload = function() {
+					var that = this;
+					//生成比例 
+					var w = that.width,
+						h = that.height,
+						scale = w / h;
+						
+					w = 480 || w;
+					h = w / scale;
+					//生成canvas
+		
+    
+					var canvas = document.createElement('canvas');
+			
+					var ctx = canvas.getContext('2d');
+					$(canvas).attr({
+						width: w,
+						height: h
+					});
+					//旋转
+			
+			if(imgflag==1&&plus.os.name=="iOS"){	
+			
+		
+				
+    var image1 = new Image();
+    
+      // regular rotation about center
+      var xpos = canvas.width/2;
+      var ypos = canvas.height/2;
+      ctx.drawImage(image1, xpos - image1.width / 2, ypos - image1.height / 2);
+   
+      ctx.translate(xpos, ypos);
+      ctx.rotate(450* Math.PI / 180);//旋转450度
+      ctx.translate(-xpos, -ypos);
+      ctx.drawImage(image1, xpos - image1.width / 2, ypos - image1.height / 2);
+    //旋转结束
+			};	
+				ctx.drawImage(that, 0, 0, w, h);
+			
+					var base64 = canvas.toDataURL('image/jpeg', 0.6 || 0.6); //1最清晰，越低越模糊。
+					f1 = base64;
+					f1 = f1.replace(/data:image\/jpeg;base64,/, "");
+					var phototempid = 'photo' + photoid;
+					var pic = document.getElementById(phototempid);
+					pic.src = base64;
+					newupload();
+				}
+			}
+
+			function newupload() {
+				var jsonobj = {
+					'data': f1,
+					'type': 'avtive'
+				};
+				var str = jsonobj;
+				var url = surl + "project/getPic";
+				mui.ajax(url, {
+					data: str,
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						if (data.retCode == '1') {
+							mui.toast('成功');
+							photoarray.push([data.path]);
+						} else if (data.retCode == '0') {
+							mui.toast('失败');
+						}
+					},
+					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+						mui.toast("网络连接错误");
+						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+						return false;
+					}
+				})
+			}
+			mui.init({
+				preloadPages: [{
+					id: 'Tuituitui.html',
+					url: 'Tuituitui.html'
+				}]
+			});
+			var detailPage = null;
+			mui('.mui-content').on('tap','#picsure',function() {
+			if (!detailPage) {
+				detailPage = plus.webview.getWebviewById('Tuituitui.html');
+			}
+			mui.fire(detailPage, 'uploadphoto', {
+				photoarray: photoarray
+			});
+			
+			mui.openWindow({
+				id: 'Tuituitui.html',
+				url:'Tuituitui.html'
+			});
+		})
+		</script>
+
+	</body>
+
+</html>

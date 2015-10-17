@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>推推推</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="css/mui.min.css">
+		<!--App自定义的css-->
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+
+	</head>
+
+	<body>
+		<header><span>一块推</span></header>
+		<div class="mui-content">
+			<div class="tuituitui">
+				<div id="segmentedControl" class="mui-segmented-control">
+					<a class="mui-control-item mui-active red " href="#item1" style="color: white; border-right: 1px solid white;">
+				活动
+			</a>
+					<a class="mui-control-item blue " href="#item2" style="color: white; border-right: 1px solid white;">
+				作品
+			</a>
+					<a class="mui-control-item green" href="#item3" style="color: white;">
+				任务
+			</a>
+				</div>
+			</div>
+			<div class="content1">
+				<div id="item1" class="mui-control-content mui-active">
+
+					<div class="mui-scroll">
+						<div class="things1">
+							<label for="event_topic">1.活动主题</label>
+							<input type="text" name="actiontheme" id="event_topic" value="" />
+							<label for="event_time" style="display: inline-block;margin-top: 10px;">2.活动时间</label>
+							<input type="button" name="actiontime" id="event_time" value="" style="color: white;margin-bottom: 15px;height: 40px;text-align: left;" />
+							<label for="event_loca">3.活动地点</label>
+							<input type="text" name="actionplace" id="event_loca" value="" />
+							<label for="eventreg_time1" style="display: inline-block;margin-top: 10px;">4.报名时间</label>
+							<input type="button" name="actiontime" id="eventreg_time1" value="" style="color: white;margin-bottom: 15px;height: 40px;text-align: left;width: 26%;padding: 4px;" /><span style=" margin-left: 5px;">~</span>
+							<input type="button" name="actiontime" id="eventreg_time2" value="" style="color: white;margin-bottom: 15px;height: 40px;text-align: left;width: 26%;padding: 4px;" />
+							<label for="actionorder">5.报名要求</label>
+							<textarea id="event_req" name="actionorder" rows="" cols="" placeholder="(内容不超过68个字)"></textarea>
+
+							<div class="sure1" id="uploaddoc1">
+								上传<img src="Myicon/uploading icon.png" />
+
+							</div>
+							<div class="sure1" id="uploadlabel1">
+								添加标签
+
+							</div>
+							<p style="width: 100%;text-align: center;">务必添加一张图片哦~</p>
+							<div class="sure2">
+								<input type="button" name="" id="event_publish" value="发布" />
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<div id="item2" class="mui-control-content">
+					<div class="things2">
+						<div class="original" id="original">
+							1.是否原创？
+
+							<label for="yes">是
+								<input type="radio" name="yuanchuang" id="yes" value="是" />
+								<span class=""> </span></label>
+							<label for="no">否
+								<input type="radio" name="yuanchuang" id="no" value="否" />
+								<span class=""> </span></label>
+						</div>
+						<div class="typeofworks" id="typeofworks">
+							<p>2.作品类别</p>
+							<label for="movies">影视
+								<input type="radio" name="kind" id="movies" value="影视" />
+								<span class=""> </span></label>
+							<label for="voices">音频
+								<input type="radio" name="kind" id="voices" value="音频" />
+								<span class="">	</span></label>
+							<label for="plate">平面
+								<input type="radio" name="kind" id="plate" value="音频" />
+								<span class="">	</span></label>
+							<label for="docu">文字
+								<input type="radio" name="kind" id="docu" value="音频" />
+								<span class="">	</span></label>
+
+						</div>
+						<div class="nameofworks">
+							3.作品名称
+							<input type="text" name="" id="works_name" value="" placeholder="" />
+						</div>
+						<div class="introofworks">
+							4.作品介绍
+							<textarea id="works_intro" name="" rows="" cols="" placeholder="（内容不超过68个字）"></textarea>
+						</div>
+
+						<div class="sure1" id="uploaddoc2" style="background:#4EB5D7 ;">
+							上传<img src="Myicon/uploading icon.png"style="background:#4EB5D7 ;" />
+
+							</div>
+							<div class="sure1" id="uploadlabel2" style="background:#4EB5D7 ;">
+							添加标签
+
+							</div>
+							<p style="width: 100%;text-align: center;">务必添加一张图片哦~</p>
+							<div class="sure2" >
+								<input type="button" name="" id="works_publish" value="发布" style="background:#4EB5D7 ;"/>
+
+							</div>
+
+					</div>
+				</div>
+				<div id="item3" class="mui-control-content">
+					<div class="things3">
+						<label for="tasks_theme">1.任务主题
+							<input type="text" name="" id="tasks_theme" value="" placeholder="" />
+						</label>
+						<label for="tasks_money">2.悬赏金额（元）
+							<input type="number" name="" id="tasks_money" value="" placeholder="" style="width: 43%;" />
+						</label>
+						<label for="tasks_tel">3.联系电话
+							<input type="tel" name="" id="tasks_tel" value="" placeholder="" />
+						</label>
+						<label for="tasks_req">4.任务要求
+							<input type="text" name="" id="tasks_req" value="" placeholder="" />
+						</label>
+						<label for="tasks_content">5.任务内容
+							<textarea id="tasks_content" name="" rows="" cols="" placeholder="(内容不超过68个字)"></textarea>
+						</label>
+
+						<div class="sure1" id="uploaddoc3" style="background:#9AD0AE ;height: none;">
+								上传<img src="Myicon/uploading icon.png"style="background:#9AD0AE ;" />
+                                       
+							</div>
+							<div class="sure1" id="uploadlabel3" style="background:#9AD0AE ;">
+							添加标签
+
+							</div>
+							
+							<p style="width: 100%;text-align: center;">务必添加一张图片哦~</p>
+							<div class="sure2" >
+								<input type="button" name="" id="tasks_publish" value="发布" style="background:#9AD0AE ;"/>
+
+							</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer class="navigation ">
+
+			<img src="Myicon/home page icon.png" id="index" style="height: 35px;position: fixed;bottom: 10px;left: 6%;background:rgba(30,28,29,0.1);z-index: 100;" />
+			<img src="Myicon/tui.png" id="Tuituitui" style="height:90px;width:90px;position: fixed;bottom: 10px;left:38%;background: none;z-index: 100;" />
+			<img src="Myicon/personal center.png" id="PersonalCenter" style="height: 35px;position: fixed;right: 6%;bottom: 10px; background: rgba(30,29,29,0.1);z-index: 100;" />
+
+		</footer>
+
+	</body>
+	<script src="js/mui.min.js" type="text/javascript" charset="utf-8 "></script>
+	<script src="js/ajax.js" type="text/javascript" charset="utf-8 "></script>
+	<script src="js/url.js" type="text/javascript" charset="utf-8 "></script>
+	<script src="js/toggleClass.js" type="text/javascript" charset="utf-8 "></script>
+	<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		mui.init({
+			
+		});
+		 //时间日历模板
+		var timeofaction = null;
+		var timeofaction1 = null;
+		var timeofaction2 = null;
+		var eventreg1 = document.getElementById("eventreg_time1");
+		var eventreg2 = document.getElementById("eventreg_time2");
+		var event_time = document.getElementById("event_time");
+		event_time.addEventListener('tap', function() {
+			var dDate = new Date();
+			dDate.setFullYear(2014, 7, 2);
+			var minDate = new Date();
+			minDate.setFullYear(2010, 0, 1);
+			var maxDate = new Date();
+			maxDate.setFullYear(2030, 11, 31);
+			plus.nativeUI.pickDate(function(e) {
+				var d = e.date;
+				timeofaction = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+				event_time.value = timeofaction;
+			}, function(e) {
+				info.innerText = "您没有选择日期";
+			}, {
+				title: "请选择日期",
+				date: dDate,
+				minDate: minDate,
+				maxDate: maxDate
+			});
+		})
+		 eventreg1.addEventListener('tap', function() {
+			var dDate = new Date();
+			dDate.setFullYear(2014, 7, 2);
+			var minDate = new Date();
+			minDate.setFullYear(2010, 0, 1);
+			var maxDate = new Date();
+			maxDate.setFullYear(2030, 11, 31);
+			plus.nativeUI.pickDate(function(e) {
+				var d = e.date;
+				timeofaction1 = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+				eventreg1.value = timeofaction1;
+			}, function(e) {
+				info.innerText = "您没有选择日期";
+			}, {
+				title: "请选择日期",
+				date: dDate,
+				minDate: minDate,
+				maxDate: maxDate
+			});
+		})
+		 eventreg2.addEventListener('tap', function() {
+			var dDate = new Date();
+			dDate.setFullYear(2014, 7, 2);
+			var minDate = new Date();
+			minDate.setFullYear(2010, 0, 1);
+			var maxDate = new Date();
+			maxDate.setFullYear(2030, 11, 31);
+			plus.nativeUI.pickDate(function(e) {
+				var d = e.date;
+				timeofaction2 = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+				eventreg2.value = timeofaction2;
+			}, function(e) {
+				info.innerText = "您没有选择日期";
+			}, {
+				title: "请选择日期",
+				date: dDate,
+				minDate: minDate,
+				maxDate: maxDate
+			});
+		})
+
+		
+
+		var original = document.getElementById("original");
+		var span = original.getElementsByTagName("span");
+		span[0].addEventListener('tap', function() {
+			span[0].setAttribute('class', 'blueback');
+			span[1].setAttribute('class', '');
+			window.yuanchuang = "是";
+		})
+		 span[1].addEventListener('tap', function() {
+			span[1].setAttribute('class', 'blueback');
+			span[0].setAttribute('class', '');
+			window.yuanchuang = "否";
+		})
+		var typeofworks = document.getElementById("typeofworks");
+		var spanoftype = typeofworks.getElementsByTagName('span');
+		spanoftype[0].addEventListener('tap', function() {
+			for (i = 0; i < 4; i++) {
+				spanoftype[i].setAttribute('class', '');
+			}
+			this.setAttribute('class', 'blueback');
+			window.kind = "影视";
+		})
+		 spanoftype[1].addEventListener('tap', function() {
+			for (i = 0; i < 4; i++) {
+				spanoftype[i].setAttribute('class', '');
+			}
+			this.setAttribute('class', 'blueback');
+			window.kind = "音频";
+		})
+		 spanoftype[2].addEventListener('tap', function() {
+			for (i = 0; i < 4; i++) {
+				spanoftype[i].setAttribute('class', '');
+			}
+			this.setAttribute('class', 'blueback');
+			window.kind = "平面";
+		})
+		 spanoftype[3].addEventListener('tap', function() {
+			for (i = 0; i < 4; i++) {
+				spanoftype[i].setAttribute('class', '');
+			}
+			this.setAttribute('class', 'blueback');
+			window.kind = "文字";
+		})
+		var publish1 = document.getElementById("event_publish");
+		
+		window.addEventListener('uploadphoto', function(event) {
+			
+			var photoarray = event.detail.photoarray;
+			publish1.addEventListener('tap', function() {
+			    
+			    var s3 = eventreg1.value + "--" + eventreg2.value;
+				var topic = document.getElementById("event_topic").value;
+				var loca = document.getElementById("event_loca").value;
+				var req = document.getElementById("event_req").value;
+				if (topic == '' || topic == null || timeofaction == '' || timeofaction == null || loca == '' || loca == null || req == '' || req == null || s3 == null || s3 == '') {
+					mui.toast('不能为空,请全部输入');
+				} else {
+					var jsonobj = {
+						'theme': topic,
+						'start_time': timeofaction,
+						'place': loca,
+						'join_time': s3,
+						'demand': req,
+						'upload': JSON.stringify(photoarray),
+					    'label':localStorage.chooselabel
+					};
+					
+					var str = jsonobj;
+					var url = surl + "project/addActive";
+					mui.ajax(url, {
+						data: str,
+						dataType: 'json',
+						type: 'post',
+						timeout: 10000,
+						success: function(data) {
+							if (data.state == '1') {
+								mui.toast('发布成功,后台审核中...');
+							    mui.openWindow({
+							    	url:'index.html',
+							    	id:'index.html'
+							    	
+							    })
+							} else if (data.state == '0') {
+								mui.toast('发布失败');
+							}
+						},
+						error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+							
+							mui.toast("网络连接错误");
+							console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+							console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+							return false;
+						}
+					})
+				}
+			})
+		
+		var publish2 = document.getElementById("works_publish");
+		publish2.addEventListener('tap', function() {
+			
+			var name = document.getElementById("works_name").value;
+			var intro = document.getElementById("works_intro").value;
+			if (yuanchuang == '' || yuanchuang == null || kind == '' || kind == null || name == '' || name == null || intro == '' || intro == null) {
+				mui.toast('不能为空,请全部输入');
+			} else {
+				var jsonobj = {
+					'orig': yuanchuang,
+					'type': kind,
+					'name': name,
+					'introduce': intro,
+				    'upload': JSON.stringify(photoarray),
+				    'label':localStorage.chooselabel
+				};
+				var str = jsonobj;
+				var url = surl + "project/addWork";
+				mui.ajax(url, {
+					data: str,
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						if (data.state == '1') {
+							mui.toast('发布成功,后台审核中...');
+						     mui.openWindow({
+							    	url:'index.html',
+							    	id:'index.html'
+							    	
+							    })
+						} else if (data.state == '0') {
+							mui.toast('发布失败');
+						}
+					},
+					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+					  
+						mui.toast("网络连接错误");
+						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+						return false;
+					}
+				})
+			} 
+		})
+		var publish3 = document.getElementById("tasks_publish");
+		publish3.addEventListener('tap', function() {
+			var theme = document.getElementById("tasks_theme").value;
+			var money = document.getElementById("tasks_money").value;
+			var tel = document.getElementById("tasks_tel").value;
+			var reqs = document.getElementById("tasks_req").value;
+			var contents = document.getElementById("tasks_content").value;
+			if (theme == '' || theme == null || money == '' || money == null || tel == '' || tel == null || reqs == '' || reqs == null || contents == '' || contents == null) {
+				
+				mui.toast('不能为空,请全部输入');
+			} else {
+				var jsonobj = {
+					'theme': theme,
+					'money': money,
+					'phone': tel,
+					'demand': reqs,
+					'content': contents,
+				    'upload': JSON.stringify(photoarray),
+				    'label':localStorage.chooselabel
+				};
+				var str = jsonobj;
+				var url = surl + "project/addRequirement";
+				mui.ajax(url, {
+					data: str,
+					dataType: 'json',
+					type: 'post',
+					timeout: 10000,
+					success: function(data) {
+						if (data.state == '1') {
+							mui.toast('发布成功,后台审核中...');
+						     mui.openWindow({
+							    	url:'index.html',
+							    	id:'index.html'
+							    	
+							    })
+						} else if (data.state == '0') {
+							mui.toast('发布失败');
+						}
+					},
+					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+						
+						mui.toast("网络连接错误");
+						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+						return false;
+					}
+				})
+			}
+		})
+		})
+		var upload1 = document.getElementById("uploaddoc1");
+		upload1.addEventListener('tap', function() {
+			
+			mui.openWindow({
+				url: 'UploaddocAction.html',
+				id: 'UploaddocAction.html'
+			})
+		})
+		var upload2 = document.getElementById("uploaddoc2");
+		upload2.addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'UploaddocWorks.html',
+				id: 'UploaddocWorks.html'
+			})
+		})
+		var upload3 = document.getElementById("uploaddoc3");
+		upload3.addEventListener('tap', function() {
+			mui.openWindow({
+				url: 'UploaddocTasks.html',
+				id: 'UploaddocTasks.html'
+			})
+		})
+		   var index = document.getElementById("index");
+			var tuituitui = document.getElementById("Tuituitui");
+			var personal = document.getElementById("PersonalCenter");
+			index.addEventListener('tap', function() {
+				mui.openWindow({
+					url: 'index.html',
+					id: 'index.html'
+				})
+			})
+			 tuituitui.addEventListener('tap', function() {
+			        mui.openWindow({
+			        	url:'Tuituitui.html',
+			        	id:'Tuituitui.html'
+			        	
+			        })
+			        
+				
+			    
+			 })
+			 personal.addEventListener('tap', function() {
+				mui.openWindow({
+					url: 'PersonalCenter.html',
+					id: 'PersonalCenter.html'
+				})
+			})
+		
+		var uploadlabel1 = document.getElementById("uploadlabel1");
+	    var uploadlabel2 = document.getElementById("uploadlabel2");
+		var uploadlabel3 = document.getElementById("uploadlabel3");		
+		
+		uploadlabel1.addEventListener('tap',function(){
+			mui.openWindow({
+				url:"ChooseLabel.html",
+				id:"ChooseLabel.html"
+			})
+		})
+		
+		uploadlabel2.addEventListener('tap',function(){
+			mui.openWindow({
+				url:"ChooseLabel.html",
+				id:"ChooseLabel.html"
+			})
+		})
+		
+		uploadlabel3.addEventListener('tap',function(){
+			mui.openWindow({
+				url:"ChooseLabel.html",
+				id:"ChooseLabel.html"
+			})
+		})
+		
+		
+	</script>
+
+</html>

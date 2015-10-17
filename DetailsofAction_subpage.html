@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>活动详情</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" type="text/css" href="css/mui.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+		<script type="text/javascript" src="js/TouchSlide.1.1.js" ></script>
+	  <style type="text/css">
+	  	.sunicon {
+				width: 15px;
+				height: 15px;
+				display: inline-block;
+				background-image: url(Myicon/sun icon.png);
+				background-position: left top;
+				background-repeat: no-repeat;
+				background-size: 15px 15px;
+			}
+			.moonicon {
+				width: 15px;
+				height: 15px;
+				display: inline-block;
+				background-image: url(Myicon/moon icon.png);
+				background-position: left top;
+				background-repeat: no-repeat;
+				background-size: 15px 15px;
+			}
+			.staricon {
+				width: 15px;
+				height: 15px;
+				display: inline-block;
+				background-image: url(Myicon/star icon.png);
+				background-position: left top;
+				background-repeat: no-repeat;
+				background-size: 15px 15px;
+			}
+	  	/* bannercss -------------------------------------- */
+
+.focus {
+	width: 100%;
+	height: 7rem;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+}
+.focus .hd {
+	width: 100%;
+	height: 0.35rem;
+	position: absolute;
+	z-index: 1;
+	bottom: 0.35rem;
+	text-align: center;
+	background:rgba(255,255,255,0);
+}
+.focus .hd ul {
+	display: inline-block;
+	height: 0.35rem;
+	padding: 0px;
+	-webkit-border-radius: 0.35rem;
+	-moz-border-radius: 0.35rem;
+	border-radius: 0.35rem;
+	font-size: 0;
+	vertical-align: top;
+}
+.focus .hd ul li {
+	display: inline-block;
+	width: 0.35rem;
+	height: 0.35rem;
+	-webkit-border-radius: 0.35rem;
+	-moz-border-radius: 0.35rem;
+	border-radius: 0.35rem;
+	background: #fff;
+	margin: 0 0.35rem;
+	vertical-align: top;
+	overflow: hidden;
+}
+.focus .hd ul .on {
+	background: #cc002c;
+}
+.focus .bd {
+	position: relative;
+	z-index: 0;
+}
+.focus .bd li img {
+	width: 100%;
+	height: 7rem;
+	background: url(images/loading.gif) center center no-repeat;
+}
+.focus .bd li a {
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	/* 取消链接高亮 */
+}
+.banner {
+	width: 100%;
+	padding: 0px;
+}
+/*banner结束*/
+	  </style>
+	
+	
+	
+	
+	</head>
+
+	<body style="padding-bottom:0 ;" >
+		<div class="mui-content" style="margin-top: 14px;">
+			  <!-- banner Start ================================ -->
+  <div id="focus" class="focus">
+    <div class="hd">
+      <ul>
+      	
+      </ul>
+    </div>
+    <div class="bd">
+      <ul class="bdul">
+     <li class="bdulli"><a href="#"><img _src="Myicon/hd.png" src="images/blank.png" /></a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <!-- banner End ================================ --> 
+	 <!--		<div class="picofworks" id="sliderContent">
+				<div id="slider" class="mui-slider">
+				
+         
+         
+         
+              <div class="mui-slider-group mui-slider-loop" id="lunbo">
+						<div class="mui-slider-item">
+							<a href="#"><img src="Myicon/2.jpg"></a>
+							
+						</div>
+				
+
+					</div>
+				
+					
+					<div class="mui-slider-indicator" id="dotcontent">
+
+					</div>
+				</div>
+ 
+			</div>	 -->
+
+			<div class="personofworks">
+				<div class="user" id='taren'> <span id="portrait">
+                	    	<img src="" id = "icon"/>
+                	    </span>
+					<span id="user_name">
+	     	            	 
+	     	            </span>
+				</div>
+
+				<div class="feelactive"> 
+					<img src="Myicon/zan.png" class="icon"  id="numoflikepic"/>
+					<span id="numoflike">
+						
+	     	            </span>
+					<img src="Myicon/tread icon.png" class="icon" id="numofunlikepic"/>
+					<span id="numofunlike">
+	     	          
+					    </span>
+					<img src="Myicon/pinglun.png" class="icon" />
+					<span id="numofcomment">
+	     	            </span>
+					<img src="Myicon/share icon.png" class="icon" />
+					<span id="numoftrans">
+	     	            </span>
+				</div>
+			</div>
+			<div class="juli">距离：<span id="juli"></span></div>
+			<div class="numofperson">
+				已报名人数：<span id="numofperson"> </span>人
+			</div>
+			<div class="title">
+				<div class="title-left">
+
+					<p id="title"></p>
+					<p style="color: white;font-size: 21px;margin-top: -6px;">——<span id="title-place"></span></p>
+				</div>
+				<div class="title-right">
+					<div>
+
+						<input type="button" id="showmask" value="我要报名" />
+					</div>
+
+					<div>
+
+						<p style="font-size: 10px;margin-left: -13%;">发布时间：<span id="time">
+	     	    	   
+	     	    </span></p>
+					</div>
+				</div>
+			</div>
+			<div class="line1" style="margin-top:30px;"> </div>
+			<div class="theme">1.活动主题:<span id="theme"></span></div>
+			<div class="timeofaction">2.活动时间:<span id="timeofaction"></span></div>
+			<div class="line1"> </div>
+			<ul style="margin-top: 20px;margin-bottom: 30px;" id='ulofpinglun'>
+				
+			</ul>
+                 <div class="picofpinglun" style="text-align: center;height: 100%;margin-top:-20px ;">
+                 	<img src="Myicon/comment.png" style="width: 12%;" id="picofpinglun"/>
+                 </div> 
+			<div class="line"> </div>
+			<div class="signup">报名列表</div>
+			<div class="signuplist" style="margin-bottom: 60px;">
+				<ul style="padding: 0;" id='baoming'>
+					
+
+				</ul>
+			  
+			</div>
+		</div>
+
+		<div class="mask" id="mask"> </div>
+		<div class="maskflow" id="maskflow">
+			<div class="header1">我要报名</div>
+			<div class="divofname">
+				<label for="username">1.本人姓名</label>
+				<input type="text" name="" id="username" value="" />
+			</div>
+			<div class="divoftel">
+				<label for="tel">2.联系方式</label>
+				<input type="tel" name="" id="tel" value="" />
+			</div>
+			<div class="timeofsignup">报名时间<span id="timeofsignup"></span></div>
+			<div class="besure" id="besure">确定</div>
+		</div>
+
+		<!--<div class="pinglunfooter">
+			<input type="text" name="comment" id="comment" value="" placeholder="我也说两句（不超过48个字）" />
+			<label for="comment">
+				<div class="imgcomment"><img src="UI/yqt/icon/评论（大）.png" /></div>
+			</label>
+		</div>-->
+
+	</body>
+
+</html>
+<script type="text/javascript">
+
+	
+	
+	
+	
+	var userid = '';
+	var isJoined = '';
+	var app_time = '';
+	var urls = surl + "project/getDetail";
+	var jsonobj = {
+		'type': 'active',
+		'tuiId': localStorage.gettuiId
+	};
+	mui.ajax(urls, {
+		data: jsonobj,
+		dataType: 'json',
+		type: 'post',
+		timeout: 10000,
+		success: function(data) {
+			if (data.state !== '1') {
+				var place = data.place;
+				var act_time = data.act_time;
+				var theme = data.theme;
+				var comm = data.comment;
+				var icon = data.icon;
+				var buildId = data.id;
+				var id = data.loginId; //ID
+			     isJoined = data.isJoined;
+				
+				var ifPraised = data.isPraised;
+				var ifRoast = data.isRoast;
+			
+				if(ifPraised=='1'){
+					document.getElementById("numoflikepic").src = 'Myicon/zan2.png';
+				} else{document.getElementById("numoflikepic").src = 'Myicon/zan.png';}
+				if(ifRoast=='1'){
+					document.getElementById("numofunlikepic").src = 'Myicon/tucao2.png'
+				}else{document.getElementById("numofunlikepic").src = 'Myicon/tread icon.png'}
+				var joined_number = data.joined_num;
+				var distance = data.distance;
+				var prise = data.praise;
+				var repost = data.repost;
+				var roast = data.roast;
+				var status = data.status;
+				var upload = data.upload;
+				var splitupload = upload.split("\"");
+				var newimsrc = serip + splitupload[1];
+				userid = data.userId;
+				app_time = data.app_time;
+				var username = data.username;
+				var longtime = data.time;
+				var spliTime = longtime.split(" ");
+				var time = spliTime[0];
+				var usefulpic = new Array();
+				var div = new Array();
+				var diver = "";
+				var jj = 0;
+				var commentlist = new Array();
+				var com = new Array(); //评论
+				var floor = new Array(); //楼层
+				var comTime = new Array(); //评论时间
+				var commId = new Array(); //评论人的ID
+				var commUserName = new Array(); // 评论者的昵称
+				var commIcon = new Array();
+				var commentlist = data.commentList;
+				var commentdiv = "";
+				var commentplace = document.getElementById("ulofpinglun");
+				var li = new Array();
+				for (q = 0; q < commentlist.length; q++) {
+					com[q] = commentlist[q].comment;
+					floor[q] = commentlist[q].floor;
+					comTime[q] = commentlist[q].time;
+					commUserName[q] = commentlist[q].username;
+					commId[q] = commentlist[q].userId;
+					commIcon[q] = commentlist[q].icon; //评论人的头像
+					if (id == commId[q]) {
+						li[q] = "<li class=\"user1\"><div name=\"comment\" class=\"textarea1\">" + com[q] + "</div>";
+						li[q] += "<div class=\"person\"><img src=\"" + serip + commIcon[q] + "\" />";
+						li[q] += "<p id=\"commentuser_name\">我</p></div>";
+						li[q] += "<span class=\"floor\"><span id=\"numoffloor\">" + floor[q] + "</span>楼";
+						li[q] += "<span id=\"time2\">" + comTime[q] + "</span></span>";
+						li[q] += "<div class=\"clear\"></div></li>";
+						commentdiv += li[q];
+						commentplace.innerHTML = commentdiv;
+					}
+					if (id != commId[q]) {
+						li[q] = "<li class=\"user2\"><div class=\"person\"><img src= \"" + serip + commIcon[q] + "\"/>";
+						li[q] += "<p id=\"user_name\">" + commUserName[q] + "</p></div>";
+						li[q] += "<div name=\"comment\" class=\"textarea\">" + com[q] + "</div>";
+						li[q] += "<span class=\"floor\"><span id=\"numoffloor\">" + floor[q] + "</span>楼";
+						li[q] += "<span id=\"time2\">" + comTime[q] + "</span></span>";
+						li[q] += "<div class=\"clear\"></div></li>";
+						commentdiv += li[q];
+						commentplace.innerHTML = commentdiv;
+					}
+				}
+				for (y = 0; y < splitupload.length; y++) {
+					if (y % 2 != 0) {
+						usefulpic[jj] = splitupload[y];
+						jj++;
+					}
+				}
+				
+				document.getElementById("juli").innerHTML = distance;
+				document.getElementById("numoflike").innerHTML = prise;
+				document.getElementById("user_name").innerHTML = username;
+				document.getElementById("numofunlike").innerHTML = roast;
+				document.getElementById("numofcomment").innerHTML = comm;
+				document.getElementById("numoftrans").innerHTML = data.repost;
+				document.getElementById("numofperson").innerHTML = joined_number;
+				document.getElementById("title").innerHTML = theme;
+				document.getElementById("title-place").innerHTML = place;
+				document.getElementById("time").innerHTML = time;
+				document.getElementById("timeofaction").innerHTML = act_time;
+				//				document.getElementById("imgfirst").src = serip + usefulpic[0];
+				document.getElementById("icon").src = serip + icon;
+				//				document.getElementById("imglast").src = serip + usefulpic[usefulpic.length - 1];
+			
+			var divinner = "";
+				var dotinner = "";
+				var newdiv = new Array();
+				var dot = new Array();
+//				       <li class="bdulli"><a href="http://www.tudou.com"><img _src="Myicon/2.jpg" src="images/blank.png" /></a></li>
+                var bd = document.getElementById("focus");
+                var bdul = bd.childNodes[3].childNodes[1].firstChild;
+                var bdulinner = "";
+               
+                for (i = 0; i < usefulpic.length; i++){
+//              	if(i%2==1){
+                	bdulinner += "<li class=\"bdulli\"><a href=\"#\"><img _src=\""+serip+usefulpic[i]+"\" src=\"images/blank.png\" /></a></li>"; 
+//              }
+                	}
+
+                bdul.innerHTML = bdulinner;
+                
+                     (function (doc, win) {
+          var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+              var clientWidth = docEl.clientWidth;
+              if (!clientWidth) return;
+              docEl.style.fontSize = 20 * (clientWidth / 320) + 'px';
+            };
+
+          if (!doc.addEventListener) return;
+          win.addEventListener(resizeEvt, recalc, false);
+          doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+				TouchSlide({ 
+					slideCell:"#focus",
+					titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+					mainCell:".bd ul", 
+					effect:"left", 
+				  interTime:"5000",//切换时间
+					autoPlay:true,//自动播放
+					autoPage:true, //自动分页
+					switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+				});
+			
+				var baominglist = new Array();
+				var baomingIcon = new Array();
+				baominglist = data.userList;
+				var baomingname = new Array();
+				var baomingIcon = new Array();
+				var app_name = new Array();
+				var baoming = document.getElementById("baoming");
+				var app_phone = new Array();
+				var baomingheji = "";
+				var sunNum = new Array;
+				var moonNum = new Array();
+				var starNum = new Array();
+				if (userid == id) {
+					for (j = baominglist.length - 1; j >= 0; j--) {
+						app_phone[j] = baominglist[j].app_phone;
+						baomingname[j] = baominglist[j].username;
+						baomingIcon[j] = baominglist[j].icon;
+						app_name[j] = baominglist[j].app_name;
+						sunNum[j] = baominglist[j].sunNum;
+						moonNum[j] = baominglist[j].moonNum;
+						starNum[j] = baominglist[j].starNum;
+						li[j] = "<li class=\"list\"><div class=\"up\"><span id=\"numofsignup\">" + (j + 1) + "</span>.<img src=\"" + serip + baomingIcon[j] + " \"  id=\"portrait1\" /><span id='nickname' style='padding-bottom: 10px;'>" + app_name[j] + "</span>";
+						    for (sun = 0; sun < sunNum[j]; sun++) {
+								li[j] += "<span class=\"sunicon\"></span>";
+							}
+							for (moon = 0; moon < moonNum[j]; moon++) {
+								li[j] += "<span class=\"moonicon\"></span>";
+							}
+							for (star = 0; star < starNum[j]; star++) {
+								li[j] += "<span class=\"staricon\"></span>";
+							}
+						li[j] += "<span id=\"active\"></span></div>";
+						li[j] += "<div class=\"down\">姓名：<span id=\"name\" style=\"margin-right: 15px;\">" + baomingname[j] + "</span><span>联系方式" + app_phone[j] + "</div></li>";
+						baomingheji += li[j];
+						baoming.innerHTML = baomingheji;
+					}
+				} else {
+					for (j = baominglist.length - 1; j >= 0; j--) {
+						baomingname[j] = baominglist[j].username;
+						baomingIcon[j] = baominglist[j].icon;
+						app_name[j] = baominglist[j].app_name;
+						sunNum[j] = baominglist[j].sunNum;
+						moonNum[j] = baominglist[j].moonNum;
+						starNum[j] = baominglist[j].starNum;
+						li[j] = "<li class=\"list\"><div class=\"up\"><span id=\"numofsignup\">" + (j + 1) + "</span>.<img src=\"" + serip + baomingIcon[j] + " \"  id=\"portrait1\" /><span id='nickname' style='padding-bottom: 10px;'>" + app_name[j] + "</span>";
+						 for (sun = 0; sun < sunNum[j]; sun++) {
+								li[j] += "<span class=\"sunicon\"></span>";
+							}
+							for (moon = 0; moon < moonNum[j]; moon++) {
+								li[j] += "<span class=\"moonicon\"></span>";
+							}
+							for (star = 0; star < starNum[j]; star++) {
+								li[j] += "<span class=\"staricon\"></span>";
+							}
+						li[j] += "<span id=\"active\"></span></div>";
+						li[j] += "<div class=\"down\">姓名：<span id=\"name\" style=\"margin-right: 15px;\">" + baomingname[j] + "</span></div></li>";
+						baomingheji += li[j];
+						baoming.innerHTML = baomingheji;
+					
+					}
+				}
+			}
+		},
+		error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+			mui.toast("网络连接错误");
+			console.log("XMLHttpRequest.readyState:" + XMLHttpRequest.readyState);
+			console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+			return false;
+		}
+	})
+	var likenum = document.getElementById("numoflike");
+	var showmask = document.getElementById("showmask");
+	var mask = document.getElementById("mask");
+	var besure = document.getElementById("besure");
+    var showflow = document.getElementById("maskflow");
+	function showMask() {
+		$("#mask").css("height", $(document).height());
+		$("#mask").css("width", $(document).width());
+		$("#mask").show();
+		showMaskFlow();
+	}
+
+	function showMaskFlow() {
+		
+		showflow.style.display = 'block';
+	    
+	
+	
+	
+	
+	}
+
+	function hideMaskFlow() {
+		
+		showflow.style.display = 'none';
+	}
+
+	function hideMask() {
+		hideMaskFlow();
+		$("#mask").hide();
+	}
+	showmask.addEventListener('touchstart', function() {
+	if (isJoined == '0'){
+	showflow.style.display = 'block';
+	showMask();
+	
+	document.getElementById("timeofsignup").innerHTML = app_time;
+	
+	
+	
+	}
+		else if (isJoined == '1'){
+			mui.toast('已报名');
+		}
+	
+	})
+	besure.addEventListener('tap', function() {
+	
+		var jsonobj = {
+						    "name":document.getElementById("username").value,
+						    "phone":document.getElementById("tel").value,
+							"proId":localStorage.gettuiId,
+						};
+					    var str = jsonobj;
+						var url = surl + "user/joinGame";
+						mui.ajax(url, {
+							data: str,
+							dataType: 'json',
+							type: 'post',
+							timeout: 10000,
+							success: function(data) {
+								if (data.state == '1') {
+								    
+									mui.toast('发布成功,后台审核中...');
+								    window.location.reload();
+								} else if (data.state == '0') {
+									mui.toast('发布失败');
+								}
+							},
+							error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+								
+								mui.toast("网络连接错误");
+								console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+								console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+								return false;
+							}
+		})
+		hideMask();
+	   
+	
+	
+	})
+	mask.addEventListener('touchstart', function() {
+		hideMask();
+	})
+//				  var  mycomment = document.getElementById("comment");
+//					mycomment.addEventListener('change',function(){
+//					
+//						var jsonobj = {
+//						    "proId":localStorage.gettuiId,
+//						    "table":'activity',
+//							"comment":mycomment.value,
+//						};
+//					    var str = jsonobj;
+//						var url = surl + "user/addComment";
+//						mui.ajax(url, {
+//							data: str,
+//							dataType: 'json',
+//							type: 'post',
+//							timeout: 10000,
+//							success: function(data) {
+//								if (data.state == '1') {
+//								    
+//									mui.toast('发布成功,后台审核中...');
+//								} else if (data.state == '0') {
+//									mui.toast('发布失败');
+//								}
+//							},
+//							error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+//								
+//								mui.toast("网络连接错误");
+//								console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+//								console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+//								return false;
+//							}
+//	})
+//	})
+					var wodelikepic = document.getElementById("numoflikepic");
+					var wodelike = document.getElementById("numoflike");
+					wodelikepic.addEventListener('tap',function(){
+						    var jsonobj = {
+						    "proId":localStorage.gettuiId,
+						    "table":'active',
+							'type':'1',
+						};
+						  var str = jsonobj;
+						  var url = surl + "/user/addHot";
+						  mui.ajax(url, {
+							data: str,
+							dataType: 'json',
+							type: 'post',
+							timeout: 10000,
+							success: function(data) {
+								if (data.state == '1') {
+							
+								 numoflike.innerHTML = parseInt(numoflike.innerHTML)+1;
+								 wodelikepic.src = "Myicon/zan2.png";
+								} else if (data.state == '0') {
+									mui.toast('对不起，今天已经点过啦~')
+								}
+							},
+							error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+								
+								mui.toast("网络连接错误");
+								console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+								console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+								return false;
+							}
+	})
+						
+						
+					})
+					
+					
+					
+					var wodeunlikepic = document.getElementById("numofunlikepic");
+					var wodeunlike = document.getElementById("numofunlike");
+					wodeunlikepic.addEventListener('tap',function(){
+						    var jsonobj = {
+						    "proId":localStorage.gettuiId,
+						    "table":'active',
+							'type':'0',
+						};
+						  var str = jsonobj;
+						  var url = surl + "/user/addHot";
+						  mui.ajax(url, {
+							data: str,
+							dataType: 'json',
+							type: 'post',
+							timeout: 10000,
+							success: function(data) {
+								if (data.state == '1') {
+								 wodeunlike.innerHTML = parseInt(wodeunlike.innerHTML)+1;
+								 wodeunlikepic.src = 'Myicon/tucao2.png';
+								} else if (data.state == '0') {
+									mui.toast('对不起，今天已经点过啦~')
+								}
+							},
+							error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+								mui.toast("网络连接错误");
+								console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+								console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+								return false;
+							}
+	})
+						
+						
+					})
+					
+				var taren = document.getElementById("taren");
+				taren.addEventListener('tap',function(){
+					 var jsonobj = {
+						       'userId':userid
+						};
+						
+					    
+					    var str = jsonobj;
+						  var url = surl + "/user/getHeCenter";
+					       mui.ajax(url, {
+							data: str,
+							dataType: 'json',
+							type: 'post',
+							timeout: 10000,
+							success: function(data) {
+							    localStorage.tarenid = '';
+								localStorage.tarenid = userid;
+								mui.openWindow({
+									url:'OthersCenter.html',
+									id:'OthersCenter.html'
+								})
+								
+								
+								
+								
+								} 
+							,
+							error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+								mui.toast("网络连接错误");
+								console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+								console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+								return false;
+							}
+	})
+					
+					
+					
+					
+				})
+					
+			var picofpinglun = document.getElementById("picofpinglun");
+			picofpinglun.addEventListener('tap',function(){
+				mui.openWindow({
+					url:'pinglunAction.html',
+					id:'pinglunAction.html'
+				})
+				
+				
+			})
+					
+					
+	
+</script>
