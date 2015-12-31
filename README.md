@@ -5,3 +5,6 @@
 这是一个外包项目，
 但是也倾注了我许多心血，
 加油。
+
+
+[![ghit.me](https://ghit.me/badge.svg?repo=BernersH/yikuaitui)](https://ghit.me/repo/BernersH/yikuaitui)
