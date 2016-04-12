@@ -12,7 +12,10 @@
 		<script src="js/url.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/jquery-2.1.4.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/toggleClass.js" type="text/javascript" charset="utf-8"></script>
-		<!--标准mui.css-->
+		<script 	src="js/binaryajax.js" type="text/javascript" charset="utf-8"></script>
+	    <script 	src="js/exif.js" type="text/javascript" charset="utf-8"></script>
+			
+		<!--标准mui.css--> 
 		<link rel="stylesheet" href="css/mui.min.css">
 		<!--App自定义的css-->
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
@@ -40,36 +43,36 @@
 				</div>
 			</div>
 			<div>
-				<div id="item1" class="mui-control-content mui-active">
+				<!--<div id="item1" class="mui-control-content mui-active">-->
 
-					<div class="mui-scroll">
+					<!--<div class="mui-scroll">
 						<div class="things" id="headimg">
 							<div id="get1" class="addphoto1 " onclick="addphoto(1)">
-								<img id="photo1" src="Myicon/add icon.png" />
+								<input type="file" id="photo1" src="Myicon/add icon.png" style="height: 80px; border-radius: 0px;width:100px;" />
 							</div>
 							<div id="get2" class="addphoto transparent" onclick="addphoto(2)">
-								<img id="photo2" src="Myicon/add icon.png" />
+								<input type="file" id="photo2" src="Myicon/add icon.png" style="height: 80px;border-radius: 0px;width:100px;"  />
 							</div>
 							<div id="get3" class="addphoto transparent" onclick="addphoto(3)">
-								<img id="photo3" src="Myicon/add icon.png" />
+								<input type="file" id="photo3" src="Myicon/add icon.png" style="height: 80px;border-radius: 0px;width:100px;" />
 							</div>
 							<div id="get4" class="addphoto transparent" onclick="addphoto(4)">
-								<img id="photo4" src="Myicon/add icon.png" />
+								<input type="file" id="photo4" src="Myicon/add icon.png" style="height: 80px;border-radius: 0px;width:100px;" />
 							</div>
 							<div id="get5" class="addphoto transparent" onclick="addphoto(5)">
-								<img id="photo5" src="Myicon/add icon.png" />
+								<input type="file" id="photo5" src="Myicon/add icon.png" style="height: 80px;border-radius: 0px;width:100px;" />
 							</div>
 							<div id="get6" class="addphoto transparent" onclick="addphoto(6)">
-								<img id="photo6" src="Myicon/add icon.png" />
+								<input type="file" id="photo6" src="Myicon/add icon.png" style="height: 80px;border-radius: 0px;width:100px;" />
 							</div>
 							<div id="get7" class="addphoto transparent" onclick="addphoto(7)">
-								<img id="photo7" src="Myicon/add icon.png" />
+								<input type="file" id="photo7" src="Myicon/add icon.png" style="height: 80px;border-radius: 0px;width:100px;" />
 							</div>
 							<div id="get8" class="addphoto transparent" onclick="addphoto(8)">
-								<img id="photo8" src="Myicon/add icon.png" />
+								<input type="file" id="photo8" src="Myicon/add icon.png" style="height: 80px;border-radius: 0px;width:100px;" />
 							</div>
 							<div id="get9" class="addphoto transparent" onclick="addphoto(9)">
-								<img id="photo9" src="Myicon/add icon.png" />
+								<input type="file" id="photo9" src="Myicon/add icon.png" style="height: 80px;border-radius: 0px;width:100px;" />
 							</div>
 
 						</div>
@@ -81,9 +84,14 @@
 							</div>
 						
 
-					</div>
-				</div>
-
+					</div>-->
+				<!--</div>-->
+                <input type="file" onchange="previewFile()"><br>
+ 				<img src="" height="200" alt="Image preview...">
+                
+                
+                
+				
 				<div id="item2" class="mui-control-content">
 					<div class="voice">
 						<div class="trylisten">
@@ -148,171 +156,235 @@
 					}
 				});
 			})(mui);
-			 //上传图片
-			mui('body').on('shown', '.mui-popover', function(e) {});
-			mui('body').on('hidden', '.mui-popover', function(e) {});
+		//上传照片
+		function previewFile() {
+  var preview = document.querySelector('img');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
 
-			function addphoto(photoid) {
-			
-				if (hasClass(imgdiv[photoid - 1], 'transparent')) {} else {
-					var btnArray = [{
-						title: "使用手机拍照"
-					}, {
-						title: "从相册中选择"
-					}];
-					plus.nativeUI.actionSheet({
-						title: "添加图片",
-						cancel: "取消",
-						buttons: btnArray
-					}, function(e) {
-						var index = e.index;
-						switch (index) {
-							case 0:
-								break;
-							case 1:
-								getImage(photoid);
-								break;
-							case 2:
-								galleryImgs(photoid);
-								break;
-						}
-					});
-				}
-			}
-			var ifphoto = {
-				"ifid": [{
-					"id": 0
-				}, {
-					"id": 0
-				}, {
-					"id": 0
-				}, {
-					"id": 0
-				}, {
-					"id": 0
-				}, {
-					"id": 0
-				}, {
-					"id": 0
-				}, {
-					"id": 0
-				}, {
-					"id": 0
-				}]
-			}
-			var imgflag=0;
+  reader.onloadend = function () {
+    preview.src = reader.result;
+  }
 
-			function getImage(photoid) {
-				imgflag=1;
-	
-			
-					var cmr = plus.camera.getCamera();
-					cmr.captureImage(function(p) {
-						plus.io.resolveLocalFileSystemURL(p, function(entry) {
-							var localurl = entry.toLocalURL();
-							var phototempid = 'photo' + photoid;
-							document.getElementById(phototempid).src = localurl;
-							appendFile(localurl, photoid);
-							$(imgdiv[photoid]).removeClass('transparent');
-						});
-					});
-				}
-				//相册选取
-				
+  if (file) {
+    reader.readAsDataURL(file);
+  } else {
+    preview.src = "";
+  }
+}
 
-			function galleryImgs(photoid) {
-				imgflag=0;
-			
-				plus.gallery.pick(function(e) {
-					var phototempid = 'photo' + photoid;
-					document.getElementById(phototempid).src = e.files;
-					appendFile(e, photoid);
-					$(imgdiv[photoid]).removeClass('transparent');
-				});
-			}
-			var f1 = null;
+	var fr = new FileReader();
+fr.readAsDataURL(file); 
 
-			function appendFile(path, photoid) {
-				var img = new Image();
-				img.src = path;
-				img.onload = function() {
-					var that = this;
-					//生成比例 
-					var w = that.width,
-						h = that.height,
-						scale = w / h;
-						
-					w = 480 || w;
-					h = w / scale;
-					//生成canvas
+fr.onload = function(fe){ 
+	var result = this.result;
+	var img = new Image();
+ var exif;
+	img.onload = function() {
+		var orientation = exif ? exif.Orientation : 1;
+		// 判断拍照设备持有方向调整照片角度
+		switch(orientation) {
+			case 3: 
+				imgRotation = 180; 
+				break;
+			case 6: 
+				imgRotation = 90; 
+				break;
+			case 8: 
+				imgRotation = 270; 
+			break;
+		}
+	};
+
+	// 转换二进制数据
+	var base64 = result.replace(/^.*?,/,'');
+	var binary = atob(base64); 
+	var binaryData = new BinaryFile(binary);
+
+	// 获取exif信息
+	exif = EXIF.readFromBinaryFile(binaryData);
+
+	img.src = result;
+};	
 		
-    
-					var canvas = document.createElement('canvas');
-			
-					var ctx = canvas.getContext('2d');
-					$(canvas).attr({
-						width: w,
-						height: h
-					});
-					//旋转
-			
-			if(imgflag==1&&plus.os.name=="iOS"){	
-			
 		
-				
-    var image1 = new Image();
-    
-      // regular rotation about center
-      var xpos = canvas.width/2;
-      var ypos = canvas.height/2;
-      ctx.drawImage(image1, xpos - image1.width / 2, ypos - image1.height / 2);
-   
-      ctx.translate(xpos, ypos);
-      ctx.rotate(450* Math.PI / 180);//旋转450度
-      ctx.translate(-xpos, -ypos);
-      ctx.drawImage(image1, xpos - image1.width / 2, ypos - image1.height / 2);
-    //旋转结束
-			};	
-				ctx.drawImage(that, 0, 0, w, h);
-			
-					var base64 = canvas.toDataURL('image/jpeg', 0.6 || 0.6); //1最清晰，越低越模糊。
-					f1 = base64;
-					f1 = f1.replace(/data:image\/jpeg;base64,/, "");
-					var phototempid = 'photo' + photoid;
-					var pic = document.getElementById(phototempid);
-					pic.src = base64;
-					newupload();
-				}
-			}
+		
+		
+		
+		
+		
+		//上传图片
+//			mui('body').on('shown', '.mui-popover', function(e) {});
+//			mui('body').on('hidden', '.mui-popover', function(e) {});
+//
+//			function addphoto(photoid) {
+//			
+//				if (hasClass(imgdiv[photoid - 1], 'transparent')) {} else {
+//					var btnArray = [{
+//						title: "使用手机拍照"
+//					}, {
+//						title: "从相册中选择"
+//					}];
+//					plus.nativeUI.actionSheet({
+//						title: "添加图片",
+//						cancel: "取消",
+//						buttons: btnArray
+//					}, function(e) {
+//						var index = e.index;
+//						switch (index) {
+//							case 0:
+//								break;
+//							case 1:
+//								getImage(photoid);
+//								break;
+//							case 2:
+//								galleryImgs(photoid);
+//								break;
+//						}
+//					});
+//				}
+//			}
+//			var ifphoto = {
+//				"ifid": [{
+//					"id": 0
+//				}, {
+//					"id": 0
+//				}, {
+//					"id": 0
+//				}, {
+//					"id": 0
+//				}, {
+//					"id": 0
+//				}, {
+//					"id": 0
+//				}, {
+//					"id": 0
+//				}, {
+//					"id": 0
+//				}, {
+//					"id": 0
+//				}]
+//			}
+//			var imgflag=0;
 
-			function newupload() {
-				var jsonobj = {
-					'data': f1,
-					'type': 'avtive'
-				};
-				var str = jsonobj;
-				var url = surl + "project/getPic";
-				mui.ajax(url, {
-					data: str,
-					dataType: 'json',
-					type: 'post',
-					timeout: 10000,
-					success: function(data) {
-						if (data.retCode == '1') {
-							mui.toast('成功');
-							photoarray.push([data.path]);
-						} else if (data.retCode == '0') {
-							mui.toast('失败');
-						}
-					},
-					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
-						mui.toast("网络连接错误");
-						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
-						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
-						return false;
-					}
-				})
-			}
+//			function getImage(photoid) {
+//				imgflag=1;
+//	
+//			
+//					var cmr = plus.camera.getCamera();
+//					cmr.captureImage(function(p) {
+//						plus.io.resolveLocalFileSystemURL(p, function(entry) {
+//							var localurl = entry.toLocalURL();
+//							var phototempid = 'photo' + photoid;
+//							document.getElementById(phototempid).src = localurl;
+//							appendFile(localurl, photoid);
+//							$(imgdiv[photoid]).removeClass('transparent');
+//						});
+//					});
+//				}
+			//拍照选取
+			
+			
+			
+			
+			
+			
+			//相册选取
+				
+//
+//			function galleryImgs(photoid) {
+//				imgflag=0;
+//			
+//				plus.gallery.pick(function(e) {
+//					var phototempid = 'photo' + photoid;
+//					document.getElementById(phototempid).src = e.files;
+//					appendFile(e, photoid);
+//					$(imgdiv[photoid]).removeClass('transparent');
+//				});
+//			}
+//			var f1 = null;
+//
+//			function appendFile(path, photoid) {
+//				var img = new Image();
+//				img.src = path;
+//				img.onload = function() {
+//					var that = this;
+//					//生成比例 
+//					var w = that.width,
+//						h = that.height,
+//						scale = w / h;
+//						
+//					w = 480 || w;
+//					h = w / scale;
+//					//生成canvas
+//		
+//  
+//					var canvas = document.createElement('canvas');
+//			
+//					var ctx = canvas.getContext('2d');
+//					$(canvas).attr({
+//						width: w,
+//						height: h
+//					});
+//					//旋转
+//			
+//			if(imgflag==1&&plus.os.name=="iOS"){	
+//			
+//		
+//				
+//  var image1 = new Image();
+//  
+//    // regular rotation about center
+//    var xpos = canvas.width/2;
+//    var ypos = canvas.height/2;
+//    ctx.drawImage(image1, xpos - image1.width / 2, ypos - image1.height / 2);
+// 
+//    ctx.translate(xpos, ypos);
+//    ctx.rotate(450* Math.PI / 180);//旋转450度
+//    ctx.translate(-xpos, -ypos);
+//    ctx.drawImage(image1, xpos - image1.width / 2, ypos - image1.height / 2);
+//  //旋转结束
+//			};	
+//				ctx.drawImage(that, 0, 0, w, h);
+//			
+//					var base64 = canvas.toDataURL('image/jpeg', 0.6 || 0.6); //1最清晰，越低越模糊。
+//					f1 = base64;
+//					f1 = f1.replace(/data:image\/jpeg;base64,/, "");
+//					var phototempid = 'photo' + photoid;
+//					var pic = document.getElementById(phototempid);
+//					pic.src = base64;
+//					newupload();
+//				}
+//			}
+//
+//			function newupload() {
+//				var jsonobj = {
+//					'data': f1,
+//					'type': 'avtive'
+//				};
+//				var str = jsonobj;
+//				var url = surl + "project/getPic";
+//				mui.ajax(url, {
+//					data: str,
+//					dataType: 'json',
+//					type: 'post',
+//					timeout: 10000,
+//					success: function(data) {
+//						if (data.retCode == '1') {
+//							mui.toast('成功');
+//							photoarray.push([data.path]);
+//						} else if (data.retCode == '0') {
+//							mui.toast('失败');
+//						}
+//					},
+//					error: function(XMLHttpRequest, xmlhttp, errorThrown, data) {
+//						mui.toast("网络连接错误");
+//						console.log("XMLHttpRequest.readyState.login:" + XMLHttpRequest.readyState);
+//						console.log("XMLHttpRequest.status:" + XMLHttpRequest.status);
+//						return false;
+//					}
+//				})
+//			}
 			mui.init({
 				preloadPages: [{
 					id: 'Tuituitui.html',
